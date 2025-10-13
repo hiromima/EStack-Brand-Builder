@@ -88,16 +88,132 @@
 
 ---
 
+### Milestone 2.5: External Knowledge Integration (Phase 2.5) 🆕
+**期間**: 4 weeks
+**目標**: 外部知識ソース統合とリアルタイム更新機構
+
+#### Issue 構成
+
+##### #51 ScholarAgent 実装 (親 Issue)
+- [ ] #51-1 Google Scholar API 統合
+- [ ] #51-2 論文メタデータ抽出
+- [ ] #51-3 引用情報パーサー (APA/MLA/IEEE)
+- [ ] #51-4 被引用数・Impact Factor 取得
+- [ ] #51-5 PDF ダウンロード・テキスト抽出
+- [ ] #51-6 単体テスト
+
+##### #52 DesignTrendAgent 実装 (親 Issue)
+- [ ] #52-1 Behance API 統合
+- [ ] #52-2 デザイン画像ダウンロード
+- [ ] #52-3 デザイン分析 (色・構成・スタイル)
+- [ ] #52-4 トレンドスコアリング
+- [ ] #52-5 カテゴリ分類 (Minimalism/Swiss/Brutalism 等)
+- [ ] #52-6 単体テスト
+
+##### #53 BrandMethodAgent 実装 (親 Issue)
+- [ ] #53-1 ブランディング手法データベース構築
+- [ ] #53-2 Brand New / It's Nice That スクレイピング
+- [ ] #53-3 手法分類 (Strategic/Visual/Verbal)
+- [ ] #53-4 実績データ収集 (受賞歴・クライアント)
+- [ ] #53-5 手法評価システム
+- [ ] #53-6 単体テスト
+
+##### #54 KnowledgeValidationAgent 実装 (親 Issue) 🔴 Critical
+- [ ] #54-1 出典信頼性チェック
+- [ ] #54-2 内容品質評価 (AI ベース)
+- [ ] #54-3 重複検出アルゴリズム
+- [ ] #54-4 関連性スコアリング
+- [ ] #54-5 自動承認・保留・却下ロジック
+- [ ] #54-6 単体テスト
+
+##### #55 Enhanced KnowledgeLoader v2.0 (親 Issue)
+- [ ] #55-1 データベーススキーマ設計 (SQLite/PostgreSQL)
+- [ ] #55-2 Vector Embeddings 統合
+- [ ] #55-3 引用グラフ構築
+- [ ] #55-4 時系列バージョニング
+- [ ] #55-5 コンテキスト対応検索
+- [ ] #55-6 キャッシュ最適化
+- [ ] #55-7 単体テスト
+
+##### #56 MCP 統合 (Context Engineering Full) (親 Issue)
+- [ ] #56-1 context-engineering-full MCP 統合
+- [ ] #56-2 AI ガイド検索機能
+- [ ] #56-3 Gemini AI セマンティック検索
+- [ ] #56-4 コンテキストセッション管理
+- [ ] #56-5 プロンプトテンプレート生成
+- [ ] #56-6 単体テスト
+
+##### #57 Design Template System (親 Issue)
+- [ ] #57-1 Swiss Design テンプレート
+- [ ] #57-2 Bauhaus テンプレート
+- [ ] #57-3 Minimalism テンプレート
+- [ ] #57-4 Brutalism テンプレート
+- [ ] #57-5 テンプレート選択ロジック
+- [ ] #57-6 カスタマイズエンジン
+- [ ] #57-7 単体テスト
+
+##### #58 Citation & Attribution System (親 Issue)
+- [ ] #58-1 引用フォーマット生成 (APA/MLA/IEEE)
+- [ ] #58-2 参考文献リスト自動生成
+- [ ] #58-3 In-text citation 挿入
+- [ ] #58-4 引用整合性チェック
+- [ ] #58-5 出典トレーサビリティ
+- [ ] #58-6 単体テスト
+
+##### #59 Knowledge Update Scheduler (親 Issue)
+- [ ] #59-1 定期更新スケジューラー
+- [ ] #59-2 増分更新ロジック
+- [ ] #59-3 変更検知システム
+- [ ] #59-4 自動再検証
+- [ ] #59-5 GitHub Actions 統合
+- [ ] #59-6 単体テスト
+
+##### #60 Integration Testing & Documentation (親 Issue)
+- [ ] #60-1 統合テストスイート
+- [ ] #60-2 E2E テスト (知識収集→検証→適用)
+- [ ] #60-3 パフォーマンステスト
+- [ ] #60-4 Knowledge System ドキュメント
+- [ ] #60-5 API ドキュメント
+- [ ] #60-6 使用例・チュートリアル
+
+**成果物**:
+- `src/agents/knowledge/ScholarAgent.js`
+- `src/agents/knowledge/DesignTrendAgent.js`
+- `src/agents/knowledge/BrandMethodAgent.js`
+- `src/agents/knowledge/KnowledgeValidationAgent.js`
+- `src/knowledge/KnowledgeLoaderV2.js`
+- `src/mcp/ContextEngineeringClient.js`
+- `src/templates/design/*.js`
+- `src/utils/CitationGenerator.js`
+- `src/scheduler/KnowledgeUpdateScheduler.js`
+- `.github/workflows/knowledge-update.yml`
+
+**知識ソース**:
+- Google Scholar, JSTOR, ACM Digital Library (学術)
+- Behance, Dribbble, Awwwards (デザイン)
+- Brand New, It's Nice That, Dieline (ブランディング手法)
+- Swiss Design, Bauhaus, Minimalism, Brutalism (デザイン理論)
+
+**並列実行タイムライン**:
+```
+Week 1: #51 (Scholar) + #56 (MCP) 並列実行
+Week 2: #52 (DesignTrend) + #53 (BrandMethod) 並列実行
+Week 3: #54 (Validation) + #55 (KnowledgeLoader v2) 並列実行
+Week 4: #57 (Templates) + #58 (Citation) + #59 (Scheduler) + #60 (Testing) 並列実行
+```
+
+---
+
 ### Milestone 3: Orchestration & Coordination (Phase 3)
 **期間**: 2-3 weeks
 **目標**: エージェント間調整とワークフロー制御
 
 #### Issue 構成
-- [ ] #13 CoordinatorAgent 実装
-- [ ] #14 TaskRouter 実装
-- [ ] #15 WorkflowEngine 実装 (E:Framing → E:Manifest)
-- [ ] #16 エージェント間通信テスト
-- [ ] #17 並列実行制御実装
+- [ ] #61 CoordinatorAgent 実装
+- [ ] #62 TaskRouter 実装
+- [ ] #63 WorkflowEngine 実装 (E:Framing → E:Manifest)
+- [ ] #64 エージェント間通信テスト
+- [ ] #65 並列実行制御実装
 
 **成果物**:
 - `src/agents/support/CoordinatorAgent.js`
@@ -111,11 +227,11 @@
 **目標**: 品質管理と自動評価システム
 
 #### Issue 構成
-- [ ] #18 QualityControlAgent 実装
-- [ ] #19 ToT 評価テンプレート統合
-- [ ] #20 自動スコアリングシステム
-- [ ] #21 改善サイクルロジック (最大 3 回)
-- [ ] #22 品質ゲート実装 (90 点閾値)
+- [ ] #66 QualityControlAgent 実装
+- [ ] #67 ToT 評価テンプレート統合
+- [ ] #68 自動スコアリングシステム
+- [ ] #69 改善サイクルロジック (最大 3 回)
+- [ ] #70 品質ゲート実装 (90 点閾値)
 
 **成果物**:
 - `src/agents/support/QualityControlAgent.js`
@@ -129,12 +245,12 @@
 **目標**: GitHub Actions ワークフローと自動化
 
 #### Issue 構成
-- [ ] #23 GitHub Issue テンプレート作成
-- [ ] #24 PR テンプレートと自動チェック
-- [ ] #25 agent-onboarding.yml ワークフロー
-- [ ] #26 quality-gate.yml ワークフロー
-- [ ] #27 incident-response.yml ワークフロー
-- [ ] #28 economic-circuit-breaker.yml ワークフロー
+- [ ] #71 GitHub Issue テンプレート作成
+- [ ] #72 PR テンプレートと自動チェック
+- [ ] #73 agent-onboarding.yml ワークフロー
+- [ ] #74 quality-gate.yml ワークフロー
+- [ ] #75 incident-response.yml ワークフロー
+- [ ] #76 economic-circuit-breaker.yml ワークフロー
 
 **成果物**:
 - `.github/ISSUE_TEMPLATE/*.md`
@@ -148,11 +264,11 @@
 **目標**: 自己修復機能とコスト監視
 
 #### Issue 構成
-- [ ] #29 IncidentCommanderAgent 実装
-- [ ] #30 CostMonitoringAgent 実装
-- [ ] #31 AuditAgent 実装
-- [ ] #32 自動ロールバック機能
-- [ ] #33 人間エスカレーションプロトコル
+- [ ] #77 IncidentCommanderAgent 実装
+- [ ] #78 CostMonitoringAgent 実装
+- [ ] #79 AuditAgent 実装
+- [ ] #80 自動ロールバック機能
+- [ ] #81 人間エスカレーションプロトコル
 
 **成果物**:
 - `src/agents/support/IncidentCommanderAgent.js`
@@ -161,21 +277,24 @@
 
 ---
 
-### Milestone 7: Knowledge Base & Vector Search (Phase 7)
+### Milestone 7: Advanced Knowledge Features (Phase 7)
 **期間**: 2 weeks
-**目標**: ナレッジベース永続化と検索機能
+**目標**: 高度なナレッジベース機能と Vector Search
+
+**Note**: Milestone 2.5 で基本的な知識統合は完了。この Milestone では高度な機能を追加。
 
 #### Issue 構成
-- [ ] #34 Vector Database セットアップ (Pinecone or Weaviate)
-- [ ] #35 Embedding 生成パイプライン
-- [ ] #36 類似事例検索機能
-- [ ] #37 ナレッジリポジトリ自動更新
-- [ ] #38 過去事例学習ロジック
+- [ ] #82 Vector Database 高度化 (Pinecone or Weaviate)
+- [ ] #83 Embedding 生成パイプライン最適化
+- [ ] #84 類似事例検索機能拡張
+- [ ] #85 過去事例学習ロジック
+- [ ] #86 知識グラフ可視化
 
 **成果物**:
 - `src/knowledge/VectorDatabase.js`
 - `src/knowledge/EmbeddingGenerator.js`
 - `src/knowledge/SimilaritySearch.js`
+- `src/knowledge/KnowledgeGraph.js`
 
 ---
 
@@ -184,12 +303,12 @@
 **目標**: 統合テストと完全ドキュメント化
 
 #### Issue 構成
-- [ ] #39 E2E テストスイート構築
-- [ ] #40 パフォーマンステスト
-- [ ] #41 セキュリティ監査
-- [ ] #42 API ドキュメント自動生成
-- [ ] #43 ユーザーガイド作成
-- [ ] #44 トラブルシューティングガイド
+- [ ] #87 E2E テストスイート構築
+- [ ] #88 パフォーマンステスト
+- [ ] #89 セキュリティ監査
+- [ ] #90 API ドキュメント自動生成
+- [ ] #91 ユーザーガイド作成
+- [ ] #92 トラブルシューティングガイド
 
 **成果物**:
 - `tests/e2e/*.test.js`
@@ -204,12 +323,12 @@
 **目標**: 本番環境デプロイと最終検証
 
 #### Issue 構成
-- [ ] #45 Terraform 設定 (IaC)
-- [ ] #46 HashiCorp Vault 統合
-- [ ] #47 本番環境デプロイ
-- [ ] #48 監視・アラート設定
-- [ ] #49 災害復旧テスト
-- [ ] #50 最終品質監査 (90 点以上)
+- [ ] #93 Terraform 設定 (IaC)
+- [ ] #94 HashiCorp Vault 統合
+- [ ] #95 本番環境デプロイ
+- [ ] #96 監視・アラート設定
+- [ ] #97 災害復旧テスト
+- [ ] #98 最終品質監査 (90 点以上)
 
 **成果物**:
 - `terraform/*.tf`
@@ -220,19 +339,39 @@
 
 ## 2. 実装優先順位
 
-### 高優先度 (並列実行可能)
+### 完了済み ✅
 1. BaseAgent + STP Protocol (#2, #3)
 2. StructureAgent + RSI Protocol (#7)
 3. EvaluationAgent + ToT Protocol (#9)
+4. 全コアエージェント (#8, #10, #11, #12)
 
-### 中優先度
-4. 残りのコアエージェント (#8, #10, #11, #12)
-5. CoordinatorAgent + WorkflowEngine (#13, #15)
+### 高優先度 (次フェーズ: Milestone 2.5)
+**Week 1 並列実行**:
+- ScholarAgent (#51) - 学術論文収集
+- MCP 統合 (#56) - Context Engineering Full
+
+**Week 2 並列実行**:
+- DesignTrendAgent (#52) - Behance/デザイン収集
+- BrandMethodAgent (#53) - ブランディング手法収集
+
+**Week 3 並列実行**:
+- KnowledgeValidationAgent (#54) - 信頼性検証 🔴 Critical
+- Enhanced KnowledgeLoader v2.0 (#55) - データベース・Vector 統合
+
+**Week 4 並列実行**:
+- Design Template System (#57)
+- Citation & Attribution System (#58)
+- Knowledge Update Scheduler (#59)
+- Integration Testing & Documentation (#60)
+
+### 中優先度 (Milestone 3 以降)
+- CoordinatorAgent + WorkflowEngine (#61, #63)
+- 品質管理システム (#66-#70)
 
 ### 通常優先度
-6. 品質管理システム (#18-#22)
-7. GitHub 統合 (#23-#28)
-8. 自己修復機能 (#29-#33)
+- GitHub 統合 (#71-#76)
+- 自己修復機能 (#77-#81)
+- 高度なナレッジ機能 (#82-#86)
 
 ---
 
@@ -290,18 +429,19 @@
 ## 6. タイムライン
 
 ```
-Week 1-3   : Milestone 1 (Foundation)
-Week 4-7   : Milestone 2 (Core Agents)
-Week 8-10  : Milestone 3 (Orchestration)
-Week 11-12 : Milestone 4 (Quality System)
-Week 13-15 : Milestone 5 (GitHub Integration)
-Week 16-17 : Milestone 6 (Self-Healing)
-Week 18-19 : Milestone 7 (Knowledge Base)
-Week 20-22 : Milestone 8 (Testing & Docs)
-Week 23    : Milestone 9 (Production)
+Week 1-3   : Milestone 1 (Foundation) ✅ 完了
+Week 4-7   : Milestone 2 (Core Agents) ✅ 完了
+Week 8-11  : Milestone 2.5 (External Knowledge Integration) 🆕 次フェーズ
+Week 12-14 : Milestone 3 (Orchestration)
+Week 15-16 : Milestone 4 (Quality System)
+Week 17-19 : Milestone 5 (GitHub Integration)
+Week 20-21 : Milestone 6 (Self-Healing)
+Week 22-23 : Milestone 7 (Advanced Knowledge Features)
+Week 24-26 : Milestone 8 (Testing & Docs)
+Week 27    : Milestone 9 (Production)
 ```
 
-**総期間**: 約 5-6 ヶ月
+**総期間**: 約 6-7 ヶ月 (Milestone 2.5 追加により 4 週間延長)
 
 ---
 
