@@ -938,10 +938,10 @@ describe('MultiModelEvaluator', () => {
 
 ### 技術仕様
 
-**評価モデル**:
-- Claude 3.5 Sonnet (重み: 0.4)
-- GPT-4 Turbo (重み: 0.3)
-- Gemini 1.5 Pro (重み: 0.3)
+**評価モデル** (2025年10月時点の最新):
+- Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`) (重み: 0.4) - 最新世代、複雑なエージェントとコーディングに最適
+- GPT-5 (`gpt-5` with thinking mode) (重み: 0.3) - OpenAI 最新モデル、高精度推論
+- Gemini 2.5 Pro (`gemini-2.5-pro`) (重み: 0.3) - Google最新、adaptive thinking搭載
 
 **評価カテゴリ**:
 1. Brand Consistency (ブランド整合性)
