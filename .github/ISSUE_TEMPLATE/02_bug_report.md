@@ -57,4 +57,4 @@ assignees: ''
 
 ---
 
-◤◢◤◢ **IncidentCommanderAgent が自動的にトリアージと対応を開始します** ◤◢◤◢
+**IncidentCommanderAgent が自動的にトリアージと対応を開始します**

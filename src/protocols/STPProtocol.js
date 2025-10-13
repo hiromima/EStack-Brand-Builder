@@ -39,7 +39,6 @@ export class STPProtocol {
    */
   constructor(config = {}) {
     this.version = config.version || '1.0.0';
-    this.symbol = '◤◢◤◢'; // Brand Principles Atlas 準拠の標準記号
   }
 
   /**
@@ -67,8 +66,7 @@ export class STPProtocol {
         timestamp: new Date().toISOString(),
         traceId: this._generateTraceId(),
         ...metadata
-      },
-      symbol: this.symbol
+      }
     };
   }
 

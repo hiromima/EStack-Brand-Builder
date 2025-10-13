@@ -22,7 +22,7 @@ export const SYSTEM_NAME = 'Brand Builder';
  */
 async function main() {
   console.log(`
-◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+===================================
 
   ${SYSTEM_NAME} v${VERSION}
   完全自律型 AI エージェントシステム
@@ -32,7 +32,7 @@ async function main() {
   - Brand Framer Method™
   - AGENTS.md v5.0
 
-◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+===================================
   `);
 
   // TODO: Milestone 1 完了後に CoordinatorAgent を起動

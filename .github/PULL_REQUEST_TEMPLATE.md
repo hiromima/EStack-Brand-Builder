@@ -87,7 +87,7 @@ Closes #<!-- Issue 番号 -->
 
 ---
 
-◤◢◤◢ **QualityControlAgent による自動品質チェックを実行します** ◤◢◤◢
+**QualityControlAgent による自動品質チェックを実行します**
 
 ## 自動チェック結果
 

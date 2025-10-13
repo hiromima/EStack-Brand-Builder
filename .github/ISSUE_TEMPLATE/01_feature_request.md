@@ -66,4 +66,4 @@ assignees: ''
 
 ---
 
-◤◢◤◢ **本 Issue は自律的に処理されます。CoordinatorAgent が適切なエージェントに割り振ります。** ◤◢◤◢
+**本 Issue は自律的に処理されます。CoordinatorAgent が適切なエージェントに割り振ります。**
