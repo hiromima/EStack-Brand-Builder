@@ -1,0 +1,49 @@
+{
+  "name": "brand-builder",
+  "version": "1.0.0",
+  "description": "完全自律型 AI エージェントシステムによるブランド構築プラットフォーム",
+  "main": "src/index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/**/*.test.js",
+    "test:integration": "node --test tests/integration/**/*.test.js",
+    "test:e2e": "node --test tests/e2e/**/*.test.js",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\"",
+    "docs": "jsdoc -c jsdoc.json",
+    "validate": "npm run lint && npm run test",
+    "workflow": "node src/cli/workflow.js"
+  },
+  "keywords": [
+    "brand-builder",
+    "ai-agents",
+    "autonomous-system",
+    "e-stack",
+    "brand-framer",
+    "miyabi"
+  ],
+  "author": "Enhanced/Hiromi",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hiromima/brand-builder.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "miyabi-agent-sdk": "^0.1.0-alpha.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "jsdoc": "^4.0.2"
+  }
+}
