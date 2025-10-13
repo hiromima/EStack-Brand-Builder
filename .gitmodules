@@ -1,0 +1,3 @@
+[submodule "atlas-knowledge-base"]
+	path = atlas-knowledge-base
+	url = ./atlas-knowledge-base
