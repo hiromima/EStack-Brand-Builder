@@ -257,7 +257,7 @@ interface AgentMessage {
 - Values Evaluation (10 項目)
 - Stance Evaluation (10 項目)
 
-**総合スコア 80 点以上で自動承認**
+**総合スコア 90 点以上で自動承認**
 
 ---
 
