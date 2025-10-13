@@ -19,7 +19,10 @@
     "format": "prettier --write \"src/**/*.js\" \"tests/**/*.js\"",
     "docs": "jsdoc -c jsdoc.json",
     "validate": "npm run lint && npm run test",
-    "workflow": "node src/cli/workflow.js"
+    "workflow": "node src/cli/workflow.js",
+    "convert:symbols": "node scripts/convert_symbols.js",
+    "convert:symbols:dry": "node scripts/convert_symbols.js --dry-run --verbose",
+    "convert:symbols:help": "node scripts/convert_symbols.js --help"
   },
   "keywords": [
     "brand-builder",
@@ -39,11 +42,12 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "glob": "^11.0.3",
     "miyabi-agent-sdk": "^0.1.0-alpha.1"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
-    "jsdoc": "^4.0.2"
+    "jsdoc": "^4.0.2",
+    "prettier": "^3.2.5"
   }
 }
