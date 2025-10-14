@@ -42,8 +42,12 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@pinecone-database/pinecone": "^6.1.2",
+    "dotenv": "^17.2.3",
     "glob": "^11.0.3",
-    "miyabi-agent-sdk": "^0.1.0-alpha.1"
+    "miyabi-agent-sdk": "^0.1.0-alpha.1",
+    "neo4j-driver": "^6.0.0",
+    "openai": "^6.3.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://brand-builder.com/schemas/knowledge-entry.json",
+  "title": "Knowledge Entry",
+  "description": "Dynamic knowledge base entry with source tracking and credibility metrics",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "title",
+    "content",
+    "summary",
+    "source",
+    "citation",
+    "credibility",
+    "relevance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the entry",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["academic", "design", "method", "standard", "template"],
+      "description": "Type of knowledge entry"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Entry title"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full content in Markdown format"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Brief summary of the content"
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "name", "author", "publishedDate", "accessedDate"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["journal", "book", "website", "gallery", "internal"],
+          "description": "Type of source"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Name of the source"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the source (if applicable)"
+        },
+        "author": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "description": "List of authors"
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Publication date"
+        },
+        "accessedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date when the source was accessed"
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "required": ["apa", "mla", "ieee", "bibtex"],
+      "properties": {
+        "apa": {
+          "type": "string",
+          "description": "Citation in APA format"
+        },
+        "mla": {
+          "type": "string",
+          "description": "Citation in MLA format"
+        },
+        "ieee": {
+          "type": "string",
+          "description": "Citation in IEEE format"
+        },
+        "bibtex": {
+          "type": "string",
+          "description": "Citation in BibTeX format"
+        }
+      }
+    },
+    "credibility": {
+      "type": "object",
+      "required": ["score", "peerReviewed", "citations"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Credibility score (0-100)"
+        },
+        "peerReviewed": {
+          "type": "boolean",
+          "description": "Whether the source is peer-reviewed"
+        },
+        "citations": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Number of citations"
+        },
+        "sourceRank": {
+          "type": "string",
+          "enum": ["Q1", "Q2", "Q3", "Q4"],
+          "description": "Source ranking (Q1=highest, Q4=lowest)"
+        }
+      }
+    },
+    "relevance": {
+      "type": "object",
+      "required": ["categories", "keywords", "relatedEntries"],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "description": "Categories this entry belongs to"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Keywords for search and discovery"
+        },
+        "relatedEntries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "description": "IDs of related entries"
+        }
+      }
+    },
+    "embedding": {
+      "type": ["array", "null"],
+      "items": {
+        "type": "number"
+      },
+      "description": "Vector embedding for semantic search"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["addedAt", "updatedAt", "version", "status"],
+      "properties": {
+        "addedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the entry was added"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the entry was last updated"
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Version number"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "archived", "pending-review"],
+          "description": "Entry status"
+        }
+      }
+    }
+  }
+}
