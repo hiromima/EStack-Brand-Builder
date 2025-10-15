@@ -136,11 +136,10 @@ jobs:
             console.log('Total lines:', metrics.total_lines);
             console.log('Estimated coverage:', metrics.coverage + '%');
 
-            const fsSync = require('fs');
-            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`files=\${metrics.files}\\n\`);
-            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`test_files=\${metrics.test_files}\\n\`);
-            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`total_lines=\${metrics.total_lines}\\n\`);
-            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`coverage=\${metrics.coverage}\\n\`);
+            await fs.appendFile(process.env.GITHUB_OUTPUT, \`files=\${metrics.files}\\n\`);
+            await fs.appendFile(process.env.GITHUB_OUTPUT, \`test_files=\${metrics.test_files}\\n\`);
+            await fs.appendFile(process.env.GITHUB_OUTPUT, \`total_lines=\${metrics.total_lines}\\n\`);
+            await fs.appendFile(process.env.GITHUB_OUTPUT, \`coverage=\${metrics.coverage}\\n\`);
 
             process.exit(0);
           })();
