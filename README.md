@@ -12,6 +12,7 @@ EStack-Brand-Builder は、miyabi-agent-sdk を活用した自律型エージェ
 - **GitHub エコシステム統合** — Issue、PR、Actions による完全自動化
 - **自己修復機能** — インシデント自動検知と復旧
 - **経済的自律性** — コスト監視とサーキットブレーカー
+- **🆓 完全無料 AI 統合** — Google Gemini CLI による課金ゼロの AI レビュー
 
 ## セットアップ
 
@@ -85,11 +86,36 @@ npm run docs          # ドキュメント生成
 - `AuditAgent` — セキュリティ監査
 - `CoordinatorAgent` — タスクルーティング
 
-#### GitHub Actions Workflows (4 workflows)
+#### GitHub Actions Workflows (5 workflows)
+- `gemini-pr-review.yml` — 🆓 Gemini AI 自動レビュー（完全無料）
+- `quality-gate.yml` — 品質ゲート with Gemini（自動承認 ≥90点）
 - `economic-circuit-breaker.yml` — コスト監視（毎時実行）
 - `agent-onboarding.yml` — エージェント登録
 - `incident-response.yml` — インシデント対応
-- `quality-gate.yml` — 品質ゲート（自動承認 ≥90点）
+
+### 🤖 Gemini AI 統合（完全無料）
+
+**コスト比較**
+
+| プロバイダー | 料金 | 無料枠 |
+|------------|------|--------|
+| Anthropic Claude | $3-15/1M tokens | 限定的 |
+| OpenAI GPT-4 | $0.03-0.06/1K tokens | $5 |
+| **Google Gemini** | **$0.00** | **60/min, 1,000/day** |
+
+**使い方**
+
+```bash
+# PR に自動レビューコメント
+# → Gemini が自動的にコードレビュー
+
+# 対話型 AI アシスタント
+@gemini-cli explain this code change
+@gemini-cli suggest improvements
+@gemini-cli check for security issues
+```
+
+詳細は [GEMINI_SETUP.md](docs/GEMINI_SETUP.md) を参照
 
 ## ドキュメント
 
@@ -103,6 +129,7 @@ npm run docs          # ドキュメント生成
 - [ARCHITECTURE.md](docs/ARCHITECTURE.md) — システムアーキテクチャ
 
 ### 実装ガイド
+- [GEMINI_SETUP.md](docs/GEMINI_SETUP.md) — 🆓 Gemini AI 統合ガイド（完全無料）
 - [MIYABI_SDK_USAGE.md](docs/MIYABI_SDK_USAGE.md) — Miyabi SDK 使用ガイド
 - [VECTOR_EMBEDDINGS_GUIDE.md](docs/VECTOR_EMBEDDINGS_GUIDE.md) — ベクター埋め込みガイド
 - [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) — セットアップ手順
