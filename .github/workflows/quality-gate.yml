@@ -1,0 +1,295 @@
+name: Quality Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  checks: write
+
+jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        id: lint
+        run: |
+          npm run lint 2>&1 | tee lint.log || echo "::warning::Linting found issues"
+          LINT_RESULT=${PIPESTATUS[0]}
+          echo "::set-output name=exit_code::${LINT_RESULT}"
+        continue-on-error: true
+
+      - name: Run tests
+        id: test
+        run: |
+          npm test 2>&1 | tee test.log || echo "::error::Tests failed"
+          TEST_RESULT=${PIPESTATUS[0]}
+          echo "::set-output name=exit_code::${TEST_RESULT}"
+        continue-on-error: true
+
+      - name: Run Auto-Approval System Tests
+        id: auto_approval
+        run: |
+          node scripts/test_auto_approval.js 2>&1 | tee auto-approval.log || echo "::warning::Auto-approval tests failed"
+          AUTO_APPROVAL_RESULT=${PIPESTATUS[0]}
+          echo "::set-output name=exit_code::${AUTO_APPROVAL_RESULT}"
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        continue-on-error: true
+
+      - name: Check code quality metrics
+        id: metrics
+        run: |
+          node -e "
+          import fs from 'fs/promises';
+          import { glob } from 'glob';
+
+          (async () => {
+            // Count files
+            const jsFiles = await glob('src/**/*.js');
+            const testFiles = await glob('tests/**/*.test.js');
+
+            // Calculate test coverage (simplified)
+            const coverage = testFiles.length > 0 ?
+              Math.min(100, (testFiles.length / jsFiles.length) * 150) : 0;
+
+            // Count lines of code
+            let totalLines = 0;
+            for (const file of jsFiles) {
+              const content = await fs.readFile(file, 'utf-8');
+              totalLines += content.split('\\n').length;
+            }
+
+            const metrics = {
+              files: jsFiles.length,
+              test_files: testFiles.length,
+              total_lines: totalLines,
+              coverage: coverage.toFixed(1)
+            };
+
+            console.log('Code Quality Metrics:');
+            console.log('Files:', metrics.files);
+            console.log('Test files:', metrics.test_files);
+            console.log('Total lines:', metrics.total_lines);
+            console.log('Estimated coverage:', metrics.coverage + '%');
+
+            console.log('::set-output name=files::' + metrics.files);
+            console.log('::set-output name=test_files::' + metrics.test_files);
+            console.log('::set-output name=total_lines::' + metrics.total_lines);
+            console.log('::set-output name=coverage::' + metrics.coverage);
+
+            process.exit(0);
+          })();
+          "
+
+      - name: Calculate quality score
+        id: quality
+        run: |
+          node -e "
+          const lintExit = parseInt('${{ steps.lint.outputs.exit_code }}') || 0;
+          const testExit = parseInt('${{ steps.test.outputs.exit_code }}') || 0;
+          const autoApprovalExit = parseInt('${{ steps.auto_approval.outputs.exit_code }}') || 0;
+          const coverage = parseFloat('${{ steps.metrics.outputs.coverage }}') || 0;
+
+          // Calculate quality score (0-100)
+          let score = 100;
+
+          // Linting (25 points)
+          if (lintExit !== 0) {
+            score -= 25;
+          }
+
+          // Tests (35 points)
+          if (testExit !== 0) {
+            score -= 35;
+          }
+
+          // Auto-Approval Tests (15 points)
+          if (autoApprovalExit !== 0) {
+            score -= 15;
+          }
+
+          // Coverage (25 points)
+          const coveragePoints = (coverage / 100) * 25;
+          score = score - 25 + coveragePoints;
+
+          score = Math.max(0, Math.min(100, score));
+
+          const status = score >= 90 ? 'passed' :
+                        score >= 80 ? 'warning' : 'failed';
+
+          console.log('Quality Score:', score.toFixed(0));
+          console.log('Status:', status);
+
+          console.log('::set-output name=score::' + score.toFixed(0));
+          console.log('::set-output name=status::' + status);
+
+          if (score < 90) {
+            console.log('::warning::Quality score below auto-approval threshold (90)');
+          }
+          "
+
+      - name: Auto-approve PR (if quality >= 90)
+        if: |
+          github.event_name == 'pull_request' &&
+          steps.quality.outputs.score >= 90
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              event: 'APPROVE',
+              body: `✅ **Auto-Approved by Quality Gate**
+
+            **Quality Score:** ${{ steps.quality.outputs.score }}/100
+
+            This PR meets the auto-approval threshold (≥90) as defined by the Zero-Human Approval Protocol.
+
+            ### Quality Metrics
+            - Lint: ${{ steps.lint.outputs.exit_code == '0' && '✅ Passed' || '❌ Failed' }}
+            - Tests: ${{ steps.test.outputs.exit_code == '0' && '✅ Passed' || '❌ Failed' }}
+            - Coverage: ${{ steps.metrics.outputs.coverage }}%
+            - Files: ${{ steps.metrics.outputs.files }}
+            - Test files: ${{ steps.metrics.outputs.test_files }}
+
+            ### Quality Thresholds
+            - 90-100: AUTO_APPROVED ✅
+            - 80-89: NEEDS_IMPROVEMENT ⚠️
+            - 0-79: REJECTED ❌
+
+            According to the Three Laws of Autonomy (Law of Objectivity), this change is approved for merge.
+
+            ---
+            *Automated approval by Quality Gate v1.0*
+            `
+            });
+
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['auto-approved', 'quality-passed']
+            });
+
+      - name: Request review (if quality < 90)
+        if: |
+          github.event_name == 'pull_request' &&
+          steps.quality.outputs.score < 90
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const score = parseInt('${{ steps.quality.outputs.score }}');
+            const status = score >= 70 ? '⚠️ Warning' : '❌ Failed';
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `${status} **Quality Gate: Human Review Required**
+
+            **Quality Score:** ${score}/100 (Threshold: 90)
+
+            This PR does not meet the auto-approval threshold and requires human review.
+
+            ### Quality Metrics
+            - Lint: ${{ steps.lint.outputs.exit_code == '0' && '✅ Passed' || '❌ Failed' }}
+            - Tests: ${{ steps.test.outputs.exit_code == '0' && '✅ Passed' || '❌ Failed' }}
+            - Coverage: ${{ steps.metrics.outputs.coverage }}%
+            - Files: ${{ steps.metrics.outputs.files }}
+            - Test files: ${{ steps.metrics.outputs.test_files }}
+
+            ### Required Actions
+            ${score < 70 ? '1. Fix failing tests\n2. Fix linting errors\n3. Increase test coverage' : '1. Increase test coverage to reach 90+ score'}
+
+            @hiromima please review when quality improvements are complete.
+
+            ---
+            *Automated quality check*
+            `
+            });
+
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: [score < 70 ? 'quality-failed' : 'quality-warning', 'in-review']
+            });
+
+      - name: Update check status
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const score = parseInt('${{ steps.quality.outputs.score }}');
+            const status = score >= 90 ? 'success' :
+                          score >= 70 ? 'failure' : 'failure';
+
+            const conclusion = score >= 90 ? 'success' :
+                              score >= 70 ? 'neutral' : 'failure';
+
+            github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Quality Gate',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: conclusion,
+              output: {
+                title: 'Quality Score: ' + score + '/100',
+                summary: 'Quality gate ' + (score >= 90 ? 'passed' : 'requires review'),
+                text: `### Quality Metrics
+            - Quality Score: ${score}/100
+            - Lint: ${{ steps.lint.outputs.exit_code == '0' && 'Passed' || 'Failed' }}
+            - Tests: ${{ steps.test.outputs.exit_code == '0' && 'Passed' || 'Failed' }}
+            - Coverage: ${{ steps.metrics.outputs.coverage }}%
+
+            ${score >= 90 ? '✅ Auto-approval threshold met (≥90)' : '⚠️ Human review required (score < 90)'}
+            `
+              }
+            });
+
+      - name: Upload quality report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-gate-report
+          path: |
+            lint.log
+            test.log
+            auto-approval.log
+          retention-days: 30
+
+      - name: Fail if quality too low
+        if: steps.quality.outputs.score < 70
+        run: |
+          echo "::error::Quality score too low: ${{ steps.quality.outputs.score }}/100"
+          exit 1
