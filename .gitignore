@@ -48,3 +48,9 @@ chroma_db/
 # Backups
 *.backup
 backup-*/
+# PlantUML exports
+diagrams/exports/*.png
+diagrams/exports/*.svg
+diagrams/exports/*.pdf
+*.png
+*.svg

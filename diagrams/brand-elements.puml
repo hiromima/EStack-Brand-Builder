@@ -1,0 +1,130 @@
+@startuml Brand Elements Structure
+
+title ブランド要素の構造
+
+skinparam backgroundColor #FEFEFE
+skinparam roundcorner 10
+skinparam packageStyle rectangle
+
+package "Brand Identity\n(ブランドアイデンティティ)" #E3F2FD {
+
+  package "Visual Identity\n(ビジュアルアイデンティティ)" #BBDEFB {
+    rectangle "Logo\nロゴ" as Logo
+    rectangle "Color Palette\nカラーパレット" as Color
+    rectangle "Typography\nタイポグラフィ" as Typo
+    rectangle "Imagery Style\nイメージスタイル" as Image
+  }
+
+  package "Verbal Identity\n(言語アイデンティティ)" #C5CAE9 {
+    rectangle "Brand Name\nブランド名" as Name
+    rectangle "Tagline\nタグライン" as Tag
+    rectangle "Voice & Tone\nボイス＆トーン" as Voice
+    rectangle "Key Messages\nキーメッセージ" as Message
+  }
+
+  package "Brand Values\n(ブランド価値)" #C8E6C9 {
+    rectangle "Mission\nミッション" as Mission
+    rectangle "Vision\nビジョン" as Vision
+    rectangle "Core Values\nコアバリュー" as Values
+  }
+}
+
+package "Brand Expression\n(ブランド表現)" #FFF9C4 {
+
+  package "Content\n(コンテンツ)" #FFF59D {
+    rectangle "Copy Writing\nコピーライティング" as Copy
+    rectangle "Storytelling\nストーリーテリング" as Story
+    rectangle "Content Strategy\nコンテンツ戦略" as Content
+  }
+
+  package "Channels\n(チャネル)" #FFECB3 {
+    rectangle "Website\nウェブサイト" as Web
+    rectangle "Social Media\nソーシャルメディア" as Social
+    rectangle "Print Materials\n印刷物" as Print
+    rectangle "Packaging\nパッケージ" as Package
+  }
+}
+
+package "Brand Experience\n(ブランド体験)" #E1BEE7 {
+
+  package "Customer Touchpoints\n(顧客接点)" #CE93D8 {
+    rectangle "Product\n製品" as Product
+    rectangle "Service\nサービス" as Service
+    rectangle "Support\nサポート" as Support
+    rectangle "Community\nコミュニティ" as Community
+  }
+
+  package "Internal Culture\n(内部文化)" #F8BBD0 {
+    rectangle "Employee Training\n従業員トレーニング" as Training
+    rectangle "Internal Comms\n社内コミュニケーション" as Internal
+    rectangle "Brand Champions\nブランドチャンピオン" as Champions
+  }
+}
+
+' Visual Identity の関係
+Logo --> Web : applies to
+Color --> Web : defines
+Typo --> Web : styles
+Image --> Social : guides
+
+' Verbal Identity の関係
+Name --> Tag : supports
+Voice --> Copy : guides
+Message --> Content : informs
+
+' Brand Values の関係
+Mission --> Vision : drives
+Vision --> Values : embodies
+Values --> Service : reflects
+
+' Content の関係
+Copy --> Web : populates
+Story --> Social : engages
+Content --> Print : creates
+
+' Customer Experience の関係
+Product --> Service : delivers
+Service --> Support : maintains
+Support --> Community : builds
+
+' Internal Culture の関係
+Training --> Champions : develops
+Internal --> Champions : communicates
+Champions --> Community : connects
+
+' Cross-package relationships
+Values --> Voice : informs
+Mission --> Message : defines
+Vision --> Story : inspires
+Logo --> Package : appears on
+Voice --> Social : guides
+Copy --> Print : appears in
+
+note right of "Brand Identity"
+  **Core Identity**
+
+  Defines who we are:
+  - What we look like
+  - How we speak
+  - What we stand for
+end note
+
+note right of "Brand Expression"
+  **Execution Layer**
+
+  How we show up:
+  - Content creation
+  - Channel strategy
+  - Consistent delivery
+end note
+
+note right of "Brand Experience"
+  **Customer Perception**
+
+  What they feel:
+  - Touchpoint quality
+  - Internal alignment
+  - Community building
+end note
+
+@enduml

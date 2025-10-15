@@ -1,0 +1,127 @@
+@startuml Agent Workflow
+
+title エージェントワークフロー - ブランド構築プロセス
+
+|#LightBlue|User|
+start
+:Submit Brand Request;
+note right
+  Input:
+  - Brand name
+  - Industry
+  - Target audience
+  - Requirements
+end note
+
+|#FFF3E0|CoordinatorAgent|
+:Analyze Request;
+:Route to Agents;
+
+|#E3F2FD|StructureAgent|
+:Define Brand Structure;
+note right
+  Output:
+  - Brand hierarchy
+  - Key elements
+  - Relationships
+end note
+
+|#E3F2FD|ExpressionAgent|
+:Generate Expressions;
+split
+  :Verbal Identity;
+  note right: Taglines, messages
+split again
+  :Visual Concepts;
+  note right: Style guidelines
+split again
+  :Tone & Voice;
+  note right: Communication style
+end split
+
+|#E3F2FD|CopyAgent|
+:Write Copy Variations;
+note right
+  Multiple variants:
+  - A/B testing
+  - Different tones
+  - Length variations
+end note
+
+|#E3F2FD|EvaluationAgent|
+:Evaluate Quality;
+if (Score >= 80?) then (yes)
+  |#E8F5E9|QualityControlAgent|
+  :Comprehensive Check;
+  note right
+    Quality metrics:
+    - Brand consistency
+    - Grammar
+    - Style compliance
+    - Originality
+  end note
+
+  if (Final Score >= 90?) then (yes)
+    :Auto-Approve;
+    note right
+      **Zero-Human Approval**
+      - Quality >= 90
+      - No human review needed
+    end note
+
+    |#FFF3E0|DocumentationAgent|
+    :Generate Docs;
+    split
+      :Brand Guidelines;
+    split again
+      :Usage Examples;
+    split again
+      :Asset Library;
+    end split
+
+    |#FFF3E0|TechnicalAgent|
+    :Technical Review;
+    note right
+      Analysis:
+      - Code quality
+      - Security
+      - Performance
+    end note
+
+    |#LightBlue|User|
+    :Receive Complete Brand Package;
+    note right
+      Deliverables:
+      - Brand identity
+      - Guidelines
+      - Copy variants
+      - Documentation
+      - Quality report
+    end note
+    stop
+
+  else (no: 80-89)
+    |#FFF3E0|CoordinatorAgent|
+    :Request Human Review;
+    |User|
+    :Manual Review;
+    if (Approved?) then (yes)
+      :Accept;
+      stop
+    else (no)
+      |#E3F2FD|CopyAgent|
+      :Revise Based on Feedback;
+    endif
+  endif
+
+else (no: <80)
+  |#E3F2FD|CopyAgent|
+  :Regenerate;
+  note right
+    Issues found:
+    - Low quality score
+    - Regenerate required
+  end note
+endif
+
+@enduml

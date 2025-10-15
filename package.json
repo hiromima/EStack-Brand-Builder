@@ -31,7 +31,11 @@
     "test:packages": "node scripts/test_all_packages.js",
     "verify": "node scripts/verify_system.js",
     "verify:dry": "node scripts/verify_dry_run.js",
-    "verify:miyabi": "node scripts/verify_miyabi_setup.js"
+    "verify:miyabi": "node scripts/verify_miyabi_setup.js",
+    "diagrams:generate": "plantuml diagrams/*.puml -o exports",
+    "diagrams:svg": "plantuml -tsvg diagrams/*.puml -o exports",
+    "diagrams:pdf": "plantuml -tpdf diagrams/*.puml -o exports",
+    "diagrams:watch": "plantuml -gui diagrams/"
   },
   "keywords": [
     "brand-builder",

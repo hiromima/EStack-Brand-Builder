@@ -1,0 +1,91 @@
+@startuml EStack-Brand-Builder Architecture
+
+title EStack-Brand-Builder システムアーキテクチャ
+
+skinparam backgroundColor #FEFEFE
+skinparam roundcorner 10
+skinparam shadowing true
+
+package "Core Agents" #E3F2FD {
+  [StructureAgent] as SA
+  [ExpressionAgent] as EA
+  [EvaluationAgent] as EvA
+  [CopyAgent] as CA
+}
+
+package "Quality Agents" #E8F5E9 {
+  [QualityControlAgent] as QCA
+}
+
+package "Support Agents" #FFF3E0 {
+  [DocumentationAgent] as DA
+  [TechnicalAgent] as TA
+  [CoordinatorAgent] as CoA
+  [CostMonitoringAgent] as CMA
+  [AuditAgent] as AA
+}
+
+package "External Services" #F3E5F5 {
+  database "ChromaDB" as Chroma {
+    [Vector Store]
+  }
+  cloud "Gemini API" as Gemini {
+    [AI Generation]
+    [Code Review]
+  }
+  cloud "GitHub" as GH {
+    [Issues]
+    [Actions]
+  }
+}
+
+actor User
+
+' ユーザーからのフロー
+User --> CoA : Submit Request
+
+' Core Agent フロー
+CoA --> SA : Route Task
+SA --> EA : Brand Structure
+EA --> CA : Expressions
+CA --> EvA : Copy Variants
+EvA --> QCA : Quality Check
+
+' Support Agent 連携
+QCA --> DA : Quality Report
+TA --> DA : Technical Docs
+CMA --> CoA : Cost Monitoring
+AA --> QCA : Audit Results
+
+' 外部サービス連携
+SA --> Gemini : AI Generation
+EvA --> Gemini : Quality Scoring
+QCA --> Chroma : Store Knowledge
+CoA --> GH : Issue Tracking
+TA --> Gemini : Code Review
+
+' 結果の返却
+DA --> User : Final Output
+
+note right of Gemini
+  **Google Gemini**
+  - Cost: ¥71/month
+  - Free tier: 1M req/day
+  - Model: gemini-2.0-flash-exp
+end note
+
+note bottom of Chroma
+  **Vector Database**
+  - Knowledge storage
+  - Semantic search
+  - Citation graph
+end note
+
+note top of QCA
+  **Zero-Human Approval**
+  - Auto-approval >= 90
+  - Quality threshold: 80
+  - Multi-failure penalty
+end note
+
+@enduml
