@@ -38,6 +38,8 @@ export const AgentType = {
   VISUAL: 'VisualAgent',
   COORDINATOR: 'CoordinatorAgent',
   QUALITY_CONTROL: 'QualityControlAgent',
+  DOCUMENTATION: 'DocumentationAgent',
+  TECHNICAL: 'TechnicalAgent',
   INCIDENT_COMMANDER: 'IncidentCommanderAgent',
   COST_MONITORING: 'CostMonitoringAgent',
   AUDIT: 'AuditAgent'
