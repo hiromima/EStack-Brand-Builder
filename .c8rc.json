@@ -1,0 +1,23 @@
+{
+  "all": true,
+  "src": "src",
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "src/**/*.test.js",
+    "src/**/test/**",
+    "src/cli/**",
+    "tests/**"
+  ],
+  "reporter": [
+    "text",
+    "html",
+    "lcov"
+  ],
+  "check-coverage": true,
+  "lines": 60,
+  "functions": 50,
+  "branches": 50,
+  "statements": 60
+}
