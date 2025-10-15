@@ -52,13 +52,35 @@ jobs:
       - name: Run Auto-Approval System Tests
         id: auto_approval
         run: |
-          node scripts/test_auto_approval.js 2>&1 | tee auto-approval.log || echo "::warning::Auto-approval tests failed"
+          echo "Running tests in TEST_MODE (no API costs)..."
+          TEST_MODE=true node scripts/test_auto_approval.js 2>&1 | tee auto-approval.log || echo "::warning::Auto-approval tests failed"
           AUTO_APPROVAL_RESULT=${PIPESTATUS[0]}
           echo "::set-output name=exit_code::${AUTO_APPROVAL_RESULT}"
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          TEST_MODE: "true"
+        continue-on-error: true
+
+      - name: Gemini Quality Analysis
+        if: always()
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |
+            Analyze the quality gate results and provide recommendations.
+
+            Context:
+            - Lint result: ${{ steps.lint.outputs.exit_code }}
+            - Test result: ${{ steps.test.outputs.exit_code }}
+            - Auto-approval result: ${{ steps.auto_approval.outputs.exit_code }}
+            - Coverage: ${{ steps.metrics.outputs.coverage }}%
+            - Files: ${{ steps.metrics.outputs.files }}
+
+            Provide:
+            1. Quality assessment summary
+            2. Specific improvement suggestions
+            3. Priority recommendations
+
+            Be concise and actionable.
         continue-on-error: true
 
       - name: Check code quality metrics
@@ -179,6 +201,11 @@ jobs:
             - Files: ${{ steps.metrics.outputs.files }}
             - Test files: ${{ steps.metrics.outputs.test_files }}
 
+            ### AI Analysis
+            🤖 **Powered by Google Gemini (Free Tier)**
+            - Cost: $0.00 (No API charges)
+            - See "Gemini Quality Analysis" step for detailed recommendations
+
             ### Quality Thresholds
             - 90-100: AUTO_APPROVED ✅
             - 80-89: NEEDS_IMPROVEMENT ⚠️
@@ -186,8 +213,10 @@ jobs:
 
             According to the Three Laws of Autonomy (Law of Objectivity), this change is approved for merge.
 
+            💡 **Tip**: Use \`@gemini-cli\` commands in comments for interactive AI assistance.
+
             ---
-            *Automated approval by Quality Gate v1.0*
+            *Automated approval by Quality Gate v2.0 with Gemini AI*
             `
             });
 
