@@ -100,31 +100,28 @@ Logo --> Package : appears on
 Voice --> Social : guides
 Copy --> Print : appears in
 
-note right of "Brand Identity"
+note right of Logo
   **Core Identity**
-
   Defines who we are:
-  - What we look like
-  - How we speak
-  - What we stand for
+  What we look like,
+  How we speak,
+  What we stand for
 end note
 
-note right of "Brand Expression"
+note right of Copy
   **Execution Layer**
-
   How we show up:
-  - Content creation
-  - Channel strategy
-  - Consistent delivery
+  Content creation,
+  Channel strategy,
+  Consistent delivery
 end note
 
-note right of "Brand Experience"
+note right of Product
   **Customer Perception**
-
   What they feel:
-  - Touchpoint quality
-  - Internal alignment
-  - Community building
+  Touchpoint quality,
+  Internal alignment,
+  Community building
 end note
 
 @enduml
