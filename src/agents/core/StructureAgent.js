@@ -1,8 +1,11 @@
 /**
- * StructureAgent - ブランド構造分析エージェント
- *
- * E:Stack Method™ v5.1 に基づくブランドの意味・構造分析
- * RSI Protocol による仮構造推論サポート
+ * @file StructureAgent.js
+ * @description ブランド構造分析エージェント
+ * @responsibilities
+ * - E:Stack Method™ v5.1 に基づくブランドの意味・構造分析
+ * - RSI Protocol による仮構造推論サポート
+ * - E:Stack 三層マッピング（Foundation, Structure, Expression）
+ * - ブランド構造の検証と整合性チェック
  *
  * @module StructureAgent
  * @version 1.0.0
@@ -19,20 +22,34 @@ import { BaseAgent, AgentType } from '../base/BaseAgent.js';
  */
 export class StructureAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定
+   * @param {Object} options.logger - ロガー
+   * @param {Object} options.knowledge - ナレッジベース
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.STRUCTURE,
       name: 'StructureAgent'
     });
 
-    this.options = config.options || {};
+    this.options = options;
     this.rsiMode = false; // RSI モードフラグ
+  }
+
+  /**
+   * エージェント初期化
+   * BaseAgent準拠の必須メソッド
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    this.logger?.info('[StructureAgent] Initializing...');
+
+    // RSIモードリセット
+    this.rsiMode = false;
+
+    this.logger?.info('[StructureAgent] Initialized successfully');
   }
 
   /**

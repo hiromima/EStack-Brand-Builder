@@ -1,9 +1,12 @@
 /**
- * LogoAgent - ロゴ・象徴設計エージェント
- *
- * IAF Engine Full に基づくロゴ設計
- * Brand Principles Atlas v1.1 準拠
- *
+ * @file LogoAgent.js
+ * @description ロゴ・象徴設計エージェント
+ * @responsibilities
+ * - IAF Engine Full に基づくロゴ設計
+ * - Brand Principles Atlas v1.1 準拠
+ * - 意味から形への体系的変換
+ * - シンボル分析と視覚化
+ * - 多層的意味の表現
  * @module LogoAgent
  * @version 1.0.0
  */
@@ -47,21 +50,33 @@ export const DesignDirection = {
  */
 export class LogoAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定オプション
+   * @param {Object} [options.logger] - ロガー
+   * @param {Object} [options.knowledge] - ナレッジベース
+   * @param {number} [options.variationCount] - バリエーション数
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.LOGO,
       name: 'LogoAgent'
     });
 
-    this.options = config.options || {};
+    this.options = options;
     this.variationCount = this.options.variationCount || 3;
     this.iafEngine = this._initializeIAFEngine();
+  }
+
+  /**
+   * エージェントの初期化
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    this.logger?.info('[LogoAgent] Initializing...');
+    this.logger?.info('[LogoAgent] IAF Engine version:', this.iafEngine.version);
+    this.logger?.info('[LogoAgent] Default variations:', this.variationCount);
+    this.logger?.info('[LogoAgent] Initialized successfully');
   }
 
   /**

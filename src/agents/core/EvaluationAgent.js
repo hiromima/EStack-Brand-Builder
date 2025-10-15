@@ -1,8 +1,11 @@
 /**
- * EvaluationAgent - ToT 評価・意思決定エージェント
- *
- * Tree of Thoughts による複数案の並列評価
- * 90点以上で自動承認
+ * @file EvaluationAgent.js
+ * @description 品質評価エージェント - ToT 評価・意思決定エージェント
+ * @responsibilities
+ * - ブランド成果物の品質評価
+ * - Tree of Thoughts による複数案の並列評価
+ * - 90点以上で自動承認
+ * - 多層評価と最適案選定
  *
  * @module EvaluationAgent
  * @version 1.0.0
@@ -32,21 +35,33 @@ export const EvaluationCategory = {
  */
 export class EvaluationAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定
+   * @param {Object} [options.logger] - ロガー
+   * @param {Object} [options.knowledge] - ナレッジベース
+   * @param {number} [options.threshold=90] - 評価閾値
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.EVALUATION,
       name: 'EvaluationAgent'
     });
 
-    this.options = config.options || {};
+    this.options = options;
     this.threshold = this.options.threshold || 90; // 90点閾値
     this.evaluationCriteria = this._loadEvaluationCriteria();
+  }
+
+  /**
+   * エージェント初期化
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    this.logger?.info('[EvaluationAgent] Initializing...');
+    this.logger?.info('[EvaluationAgent] Evaluation criteria loaded');
+    this.logger?.info(`[EvaluationAgent] Threshold set to ${this.threshold} points`);
+    this.logger?.info('[EvaluationAgent] Initialized successfully');
   }
 
   /**
