@@ -55,10 +55,11 @@ jobs:
             const reportText = agent.generateOnboardingReport(report);
             console.log(reportText);
 
-            // Export for GitHub Actions
-            console.log('::set-output name=new_agents::' + report.new_agents.length);
-            console.log('::set-output name=registered::' + report.registered);
-            console.log('::set-output name=failed::' + report.failed);
+            // Export for GitHub Actions using Environment Files
+            const fs = require('fs');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`new_agents=\${report.new_agents.length}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`registered=\${report.registered}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`failed=\${report.failed}\\n\`);
 
             if (report.failed > 0) {
               console.log('::warning::' + report.failed + ' agent(s) failed compliance tests');

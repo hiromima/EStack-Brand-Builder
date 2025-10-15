@@ -38,7 +38,7 @@ jobs:
         run: |
           npm run lint 2>&1 | tee lint.log || echo "::warning::Linting found issues"
           LINT_RESULT=${PIPESTATUS[0]}
-          echo "::set-output name=exit_code::${LINT_RESULT}"
+          echo "exit_code=${LINT_RESULT}" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Run tests
@@ -46,7 +46,7 @@ jobs:
         run: |
           npm test 2>&1 | tee test.log || echo "::error::Tests failed"
           TEST_RESULT=${PIPESTATUS[0]}
-          echo "::set-output name=exit_code::${TEST_RESULT}"
+          echo "exit_code=${TEST_RESULT}" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Run Auto-Approval System Tests
@@ -55,7 +55,7 @@ jobs:
           echo "Running tests in TEST_MODE (no API costs)..."
           TEST_MODE=true node scripts/test_auto_approval.js 2>&1 | tee auto-approval.log || echo "::warning::Auto-approval tests failed"
           AUTO_APPROVAL_RESULT=${PIPESTATUS[0]}
-          echo "::set-output name=exit_code::${AUTO_APPROVAL_RESULT}"
+          echo "exit_code=${AUTO_APPROVAL_RESULT}" >> $GITHUB_OUTPUT
         env:
           TEST_MODE: "true"
         continue-on-error: true
@@ -119,10 +119,11 @@ jobs:
             console.log('Total lines:', metrics.total_lines);
             console.log('Estimated coverage:', metrics.coverage + '%');
 
-            console.log('::set-output name=files::' + metrics.files);
-            console.log('::set-output name=test_files::' + metrics.test_files);
-            console.log('::set-output name=total_lines::' + metrics.total_lines);
-            console.log('::set-output name=coverage::' + metrics.coverage);
+            const fsSync = require('fs');
+            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`files=\${metrics.files}\\n\`);
+            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`test_files=\${metrics.test_files}\\n\`);
+            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`total_lines=\${metrics.total_lines}\\n\`);
+            fsSync.appendFileSync(process.env.GITHUB_OUTPUT, \`coverage=\${metrics.coverage}\\n\`);
 
             process.exit(0);
           })();
@@ -167,8 +168,9 @@ jobs:
           console.log('Quality Score:', score.toFixed(0));
           console.log('Status:', status);
 
-          console.log('::set-output name=score::' + score.toFixed(0));
-          console.log('::set-output name=status::' + status);
+          const fs = require('fs');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, \`score=\${score.toFixed(0)}\\n\`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${status}\\n\`);
 
           if (score < 90) {
             console.log('::warning::Quality score below auto-approval threshold (90)');
