@@ -81,8 +81,10 @@ jobs:
 
             const incidentRecord = await agent.reportIncident(incident);
 
-            console.log('::set-output name=incident_id::' + incidentRecord.id);
-            console.log('::set-output name=status::' + incidentRecord.status);
+            // Export for GitHub Actions using Environment Files
+            const fs = require('fs');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`incident_id=\${incidentRecord.id}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${incidentRecord.status}\\n\`);
           })();
           "
         env:
@@ -114,8 +116,10 @@ jobs:
 
             const incidentRecord = await agent.reportIncident(incident);
 
-            console.log('::set-output name=incident_id::' + incidentRecord.id);
-            console.log('::set-output name=status::' + incidentRecord.status);
+            // Export for GitHub Actions using Environment Files
+            const fs = require('fs');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`incident_id=\${incidentRecord.id}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${incidentRecord.status}\\n\`);
           })();
           "
 
@@ -123,7 +127,7 @@ jobs:
         id: incident_id
         run: |
           INCIDENT_ID="${{ steps.incident_from_issue.outputs.incident_id || steps.incident_manual.outputs.incident_id }}"
-          echo "::set-output name=id::${INCIDENT_ID}"
+          echo "id=${INCIDENT_ID}" >> $GITHUB_OUTPUT
           echo "Incident ID: ${INCIDENT_ID}"
 
       - name: Commit incident log

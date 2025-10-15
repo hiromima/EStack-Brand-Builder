@@ -2,8 +2,8 @@ name: Economic Circuit Breaker
 
 on:
   schedule:
-    # Run every hour
-    - cron: '0 * * * *'
+    # Run daily at midnight UTC (reduced frequency during Phase 1)
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       force_check:
@@ -53,10 +53,11 @@ jobs:
             console.log('Projected cost: $' + status.projected_cost.toFixed(2));
             console.log('Percent of budget:', status.percent_of_budget.toFixed(1) + '%');
 
-            // Export for GitHub Actions
-            console.log('::set-output name=status::' + status.status);
-            console.log('::set-output name=projected_cost::' + status.projected_cost.toFixed(2));
-            console.log('::set-output name=percent_of_budget::' + status.percent_of_budget.toFixed(1));
+            // Export for GitHub Actions using Environment Files
+            const fs = require('fs');
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${status.status}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`projected_cost=\${status.projected_cost.toFixed(2)}\\n\`);
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`percent_of_budget=\${status.percent_of_budget.toFixed(1)}\\n\`);
 
             if (status.status !== 'normal') {
               console.log('::warning::Cost alert: ' + status.status);
