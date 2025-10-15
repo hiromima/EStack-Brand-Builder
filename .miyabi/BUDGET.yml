@@ -1,0 +1,123 @@
+# Miyabi System Budget Configuration
+# This file defines the economic constraints for autonomous operations
+
+version: "1.0"
+
+# Monthly cloud budget (USD)
+budget:
+  monthly_limit: 100.00  # $100/month
+  warning_threshold: 0.70  # Alert at 70%
+  critical_threshold: 0.90  # Emergency stop at 90%
+  circuit_breaker_threshold: 1.50  # Absolute stop at 150% of projected monthly cost
+
+# Cost breakdown by service
+services:
+  anthropic:
+    budget: 40.00  # Claude API
+    model: "claude-sonnet-4-5-20250929"
+    estimated_tokens_per_month: 10000000  # 10M tokens
+
+  openai:
+    budget: 30.00  # GPT-5 & Embeddings
+    model: "gpt-5"
+    embedding_model: "text-embedding-3-small"
+    estimated_tokens_per_month: 5000000  # 5M tokens
+
+  google:
+    budget: 20.00  # Gemini API
+    model: "gemini-2.5-pro"
+    estimated_tokens_per_month: 5000000  # 5M tokens
+
+  infrastructure:
+    github_actions: 0.00  # Free tier
+    neo4j_aura: 0.00  # Free tier
+    chroma: 0.00  # Local/free
+
+  contingency: 10.00  # Buffer for unexpected costs
+
+# Monitoring configuration
+monitoring:
+  check_interval: 3600  # Check every hour (in seconds)
+  alert_channels:
+    - type: "github_issue"
+      repository: "hiromima/Brand-Builder"
+      labels: ["cost-alert", "P1-high"]
+    - type: "github_discussion"
+      category: "Operations"
+
+  cost_tracking:
+    enabled: true
+    log_file: ".miyabi/logs/cost_tracking.json"
+    retention_days: 90
+
+# Circuit breaker behavior
+circuit_breaker:
+  actions:
+    on_warning:
+      - "log_alert"
+      - "create_github_issue"
+
+    on_critical:
+      - "log_alert"
+      - "create_github_issue"
+      - "notify_guardian"
+      - "reduce_operations"  # Reduce non-critical operations
+
+    on_emergency:
+      - "log_alert"
+      - "create_critical_issue"
+      - "notify_guardian"
+      - "halt_all_operations"  # Stop all automated operations
+      - "disable_workflows"  # Disable GitHub Actions workflows
+
+# Cost optimization strategies
+optimization:
+  strategies:
+    - name: "model_selection"
+      description: "Use cheaper models for simple tasks"
+      rules:
+        - if: "task_complexity == 'simple'"
+          then: "use_smaller_model"
+
+    - name: "caching"
+      description: "Cache API responses when possible"
+      enabled: true
+      ttl: 3600  # 1 hour
+
+    - name: "batch_processing"
+      description: "Batch similar requests to reduce API calls"
+      enabled: true
+      batch_size: 10
+
+    - name: "rate_limiting"
+      description: "Limit requests per minute to avoid rate limit charges"
+      enabled: true
+      max_requests_per_minute: 60
+
+# Reporting
+reporting:
+  daily_summary:
+    enabled: true
+    time: "09:00"  # UTC
+    format: "markdown"
+    destination: ".miyabi/reports/daily/"
+
+  weekly_summary:
+    enabled: true
+    day: "monday"
+    time: "09:00"  # UTC
+    include_recommendations: true
+
+  monthly_summary:
+    enabled: true
+    day: 1
+    time: "09:00"  # UTC
+    include_forecast: true
+
+# Emergency contacts
+emergency:
+  guardian:
+    github_username: "hiromima"
+    notification_methods:
+      - "github_mention"
+      - "github_issue"

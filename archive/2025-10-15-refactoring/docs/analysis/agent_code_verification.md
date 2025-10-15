@@ -8,7 +8,7 @@
 
 ## Executive Summary
 
-Verified that all agent code in the Brand Builder system is already free of GPT-3 era symbol notation. No modifications were necessary.
+Verified that all agent code in the EStack-Brand-Builder system is already free of GPT-3 era symbol notation. No modifications were necessary.
 
 ---
 

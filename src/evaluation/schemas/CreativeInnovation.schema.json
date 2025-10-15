@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://brand-builder.ai/schemas/CreativeInnovation.json",
+  "title": "CreativeInnovationEvaluation",
+  "description": "クリエイティブ革新性評価スキーマ - Brand Builder Evaluation System",
+  "type": "object",
+  "required": ["overallScore", "dimensions", "timestamp"],
+  "properties": {
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "総合スコア (0-100)"
+    },
+    "dimensions": {
+      "type": "object",
+      "required": [
+        "originality",
+        "uniqueness",
+        "memorability",
+        "visualImpact",
+        "conceptualDepth"
+      ],
+      "properties": {
+        "originality": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "独創性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "uniqueness": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "独自性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "memorability": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "記憶性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "visualImpact": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "ビジュアルインパクトスコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "conceptualDepth": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "コンセプト深度スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        }
+      },
+      "description": "評価次元"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "強み"
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "弱み"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "改善提案"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "評価日時 (ISO 8601)"
+    },
+    "evaluator": {
+      "type": "string",
+      "enum": ["claude-sonnet-4.5", "gpt-5", "gemini-2.5-pro"],
+      "description": "評価モデル"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "スキーマバージョン"
+        },
+        "evaluationId": {
+          "type": "string",
+          "description": "評価 ID"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

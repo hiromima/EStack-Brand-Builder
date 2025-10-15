@@ -1,4 +1,4 @@
-# Brand Builder 進捗レポート
+# EStack-Brand-Builder 進捗レポート
 
 最終更新: 2025-10-14
 
@@ -118,7 +118,7 @@ Milestone 9: ░░░░░░░░░░░░░░░░░░░░   0%
 
 ### コミット履歴
 ```
-1816b5f - Initial commit: Brand Builder System Foundation
+1816b5f - Initial commit: EStack-Brand-Builder System Foundation
 e18a2f6 - Remove embedded git repository
 3e92f26 - Add atlas-knowledge-base as submodule
 e469638 - Milestone 1 完了: Foundation & Infrastructure
@@ -238,4 +238,4 @@ Week 4:   統合テスト・品質チェック
 
 ---
 
-**Brand Builder v1.0 - 完全自律型ブランド構築システム**
+**EStack-Brand-Builder v1.0 - 完全自律型ブランド構築システム**

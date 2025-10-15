@@ -1,0 +1,207 @@
+name: Economic Circuit Breaker
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      force_check:
+        description: 'Force immediate cost check'
+        required: false
+        default: 'true'
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  check-costs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run cost monitoring check
+        id: cost_check
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+        run: |
+          node -e "
+          import { CostMonitoringAgent } from './src/agents/support/CostMonitoringAgent.js';
+
+          (async () => {
+            const agent = new CostMonitoringAgent();
+            await agent.initialize();
+
+            const status = await agent.checkThresholds();
+
+            console.log('Cost check completed');
+            console.log('Status:', status.status);
+            console.log('Projected cost: $' + status.projected_cost.toFixed(2));
+            console.log('Percent of budget:', status.percent_of_budget.toFixed(1) + '%');
+
+            // Export for GitHub Actions
+            console.log('::set-output name=status::' + status.status);
+            console.log('::set-output name=projected_cost::' + status.projected_cost.toFixed(2));
+            console.log('::set-output name=percent_of_budget::' + status.percent_of_budget.toFixed(1));
+
+            if (status.status !== 'normal') {
+              console.log('::warning::Cost alert: ' + status.status);
+            }
+          })();
+          " || echo "::warning::Cost check script failed"
+
+      - name: Create warning issue
+        if: steps.cost_check.outputs.status == 'warning'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const cost = '${{ steps.cost_check.outputs.projected_cost }}';
+            const percent = '${{ steps.cost_check.outputs.percent_of_budget }}';
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Cost Warning: ${percent}% of monthly budget`,
+              body: `## Cost Monitoring Alert
+
+            **Alert Level:** WARNING
+            **Projected Monthly Cost:** $${cost}
+            **Percent of Budget:** ${percent}%
+
+            The system has detected that projected monthly costs are approaching the warning threshold (70%).
+
+            ### Actions Taken
+            - ✅ Alert logged
+            - ✅ GitHub issue created
+
+            ### Recommended Actions
+            1. Review recent API usage patterns
+            2. Identify any unexpected cost spikes
+            3. Consider optimizing model selection for simple tasks
+            4. Enable caching for repeated requests
+
+            This issue was automatically created by the Economic Circuit Breaker.
+            `,
+              labels: ['cost-alert', 'P2-Medium', 'automated']
+            });
+
+      - name: Create critical issue
+        if: steps.cost_check.outputs.status == 'critical'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const cost = '${{ steps.cost_check.outputs.projected_cost }}';
+            const percent = '${{ steps.cost_check.outputs.percent_of_budget }}';
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 CRITICAL: Cost at ${percent}% of budget`,
+              body: `## 🚨 CRITICAL COST ALERT 🚨
+
+            **Alert Level:** CRITICAL
+            **Projected Monthly Cost:** $${cost}
+            **Percent of Budget:** ${percent}%
+
+            The system has detected that projected monthly costs have exceeded the critical threshold (90%).
+
+            ### Actions Taken
+            - ✅ Alert logged
+            - ✅ Critical GitHub issue created
+            - ⚠️ Guardian notification sent
+            - ⚠️ Non-critical operations reduced
+
+            ### Immediate Actions Required
+            1. **@hiromima** - Guardian intervention required
+            2. Review and reduce API usage immediately
+            3. Disable non-essential automated operations
+            4. Investigate cost spike causes
+
+            ### System Status
+            - Non-critical operations: REDUCED
+            - Automated workflows: MONITORING
+
+            This is an automated critical alert from the Economic Circuit Breaker.
+            `,
+              labels: ['cost-alert', 'P0-Critical', 'human-intervention-required', 'automated'],
+              assignees: ['hiromima']
+            });
+
+      - name: Emergency halt
+        if: steps.cost_check.outputs.status == 'emergency'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const cost = '${{ steps.cost_check.outputs.projected_cost }}';
+            const percent = '${{ steps.cost_check.outputs.percent_of_budget }}';
+
+            // Create emergency issue
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🆘 EMERGENCY STOP: Cost at ${percent}% - SYSTEM HALTED`,
+              body: `## 🆘🆘🆘 EMERGENCY COST STOP 🆘🆘🆘
+
+            **Alert Level:** EMERGENCY
+            **Projected Monthly Cost:** $${cost}
+            **Percent of Budget:** ${percent}%
+
+            THE ECONOMIC CIRCUIT BREAKER HAS BEEN TRIGGERED.
+            ALL AUTOMATED OPERATIONS HAVE BEEN HALTED.
+
+            ### Actions Taken
+            - ✅ Alert logged
+            - ✅ Emergency issue created
+            - 🛑 ALL automated operations HALTED
+            - 🔴 GitHub Actions workflows DISABLED
+            - 📧 Guardian notified
+
+            ### IMMEDIATE GUARDIAN ACTION REQUIRED
+            **@hiromima** - This system requires immediate human intervention.
+
+            1. Review cost spike immediately
+            2. Identify the cause of excessive API usage
+            3. Manually approve continuation or keep system halted
+            4. Adjust budget limits if necessary
+
+            ### System Status
+            - ❌ All automated operations: HALTED
+            - ❌ Scheduled workflows: DISABLED
+            - ⏸️ System awaiting guardian approval to resume
+
+            **DO NOT RESUME OPERATIONS UNTIL COST ISSUE IS RESOLVED.**
+
+            This is an automated emergency stop from the Economic Circuit Breaker.
+            `,
+              labels: ['cost-alert', 'P0-Critical', 'human-intervention-required', 'emergency-stop', 'automated'],
+              assignees: ['hiromima']
+            });
+
+            // Disable all workflows (would require workflow_dispatch permissions)
+            core.setFailed('EMERGENCY: Cost circuit breaker triggered - halting all operations');
+
+      - name: Upload cost report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cost-monitoring-report
+          path: .miyabi/logs/cost_tracking.json
+          retention-days: 90

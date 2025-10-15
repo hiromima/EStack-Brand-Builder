@@ -1,10 +1,14 @@
 /**
- * BaseAgent - すべてのエージェントの抽象基底クラス
- *
- * AGENTS.md v5.0 に準拠した自律型エージェントの共通機能を提供
- *
+ * @file BaseAgent - すべてのエージェントの抽象基底クラス
+ * @description AGENTS.md v5.0 に準拠した自律型エージェントの共通機能を提供
  * @module BaseAgent
  * @version 1.0.0
+ *
+ * @responsibilities
+ * - エージェントライフサイクル管理
+ * - 状態管理とイベント発行
+ * - エラーハンドリングとメトリクス収集
+ * - トレーサビリティとロギング
  */
 
 import { EventEmitter } from 'events';
@@ -49,32 +53,66 @@ export const AgentType = {
  */
 export class BaseAgent extends EventEmitter {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {AgentType} config.type - エージェントタイプ
-   * @param {string} config.name - エージェント名
-   * @param {Object} config.logger - ロガーインスタンス
-   * @param {Object} config.knowledge - ナレッジベース
+   * @param {Object} options - エージェント設定
+   * @param {AgentType} options.type - エージェントタイプ
+   * @param {string} options.name - エージェント名
+   * @param {Object} options.logger - ロガーインスタンス
+   * @param {Object} options.knowledge - ナレッジベース
    */
-  constructor(config) {
+  constructor(options = {}) {
     super();
 
     if (new.target === BaseAgent) {
       throw new Error('BaseAgent は抽象クラスです。直接インスタンス化できません');
     }
 
-    this.type = config.type;
-    this.name = config.name || this.type;
+    this.options = options;
+    this.type = options.type;
+    this.name = options.name || this.type;
     this.state = AgentState.IDLE;
-    this.logger = config.logger;
-    this.knowledge = config.knowledge;
+    this.logger = options.logger;
+    this.knowledge = options.knowledge;
     this.metrics = {
       tasksProcessed: 0,
       successCount: 0,
       errorCount: 0,
       averageProcessingTime: 0
     };
+    this.initialized = false;
 
     this._validateConfiguration();
+  }
+
+  /**
+   * エージェントの初期化
+   *
+   * サブクラスでオーバーライド可能
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    if (this.initialized) {
+      this.logger?.warn(`[${this.name}] 既に初期化済みです`);
+      return;
+    }
+
+    this.logger?.info(`[${this.name}] 初期化開始`);
+
+    // サブクラスでオーバーライド可能
+    await this._doInitialize();
+
+    this.initialized = true;
+    this.logger?.info(`[${this.name}] 初期化完了`);
+    this.emit('initialized');
+  }
+
+  /**
+   * 初期化の実装（サブクラスでオーバーライド）
+   * @protected
+   * @returns {Promise<void>}
+   */
+  async _doInitialize() {
+    // サブクラスでオーバーライド
   }
 
   /**

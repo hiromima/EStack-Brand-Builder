@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Evaluation Rubrics",
+  "description": "Multi-model evaluation rubrics for brand proposals",
+  "definitions": {
+    "Score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Score from 0 to 100"
+    },
+    "ScoreWithReason": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "$ref": "#/definitions/Score"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Explanation for the score"
+        },
+        "strengths": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "weaknesses": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["score", "reason"]
+    }
+  },
+  "rubrics": {
+    "BrandConsistencyRubric": {
+      "type": "object",
+      "description": "Evaluates brand consistency across E-Stack layers",
+      "properties": {
+        "foundationAlignment": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "Foundation Layer (Purpose/Values/Stance) との整合性"
+            }
+          ]
+        },
+        "structureCoherence": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "Structure Layer (Core Message/Tagline) の一貫性"
+            }
+          ]
+        },
+        "expressionQuality": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "Expression (Logo/Visual Identity) の品質"
+            }
+          ]
+        },
+        "overallConsistency": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "全体的な一貫性とブランドらしさ"
+            }
+          ]
+        }
+      },
+      "required": [
+        "foundationAlignment",
+        "structureCoherence",
+        "expressionQuality",
+        "overallConsistency"
+      ]
+    },
+    "CreativeInnovationRubric": {
+      "type": "object",
+      "description": "Evaluates creative innovation and differentiation",
+      "properties": {
+        "originality": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "独創性と新規性"
+            }
+          ]
+        },
+        "memorability": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "記憶に残りやすさ"
+            }
+          ]
+        },
+        "differentiation": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "競合との差別化"
+            }
+          ]
+        },
+        "emotionalImpact": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "感情的インパクト"
+            }
+          ]
+        }
+      },
+      "required": [
+        "originality",
+        "memorability",
+        "differentiation",
+        "emotionalImpact"
+      ]
+    },
+    "MarketAlignmentRubric": {
+      "type": "object",
+      "description": "Evaluates market fit and positioning",
+      "properties": {
+        "targetAudienceFit": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "ターゲットオーディエンスとの適合性"
+            }
+          ]
+        },
+        "competitivePositioning": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "競争的ポジショニング"
+            }
+          ]
+        },
+        "trendAlignment": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "市場トレンドとの整合性"
+            }
+          ]
+        },
+        "scalability": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "スケーラビリティ"
+            }
+          ]
+        }
+      },
+      "required": [
+        "targetAudienceFit",
+        "competitivePositioning",
+        "trendAlignment",
+        "scalability"
+      ]
+    },
+    "TechnicalFeasibilityRubric": {
+      "type": "object",
+      "description": "Evaluates technical implementation feasibility",
+      "properties": {
+        "implementationComplexity": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "実装の複雑さ（低いほど高スコア）"
+            }
+          ]
+        },
+        "resourceRequirements": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "必要リソース（少ないほど高スコア）"
+            }
+          ]
+        },
+        "timeToMarket": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "市場投入までの時間（短いほど高スコア）"
+            }
+          ]
+        },
+        "maintainability": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "保守性とメンテナンスの容易さ"
+            }
+          ]
+        }
+      },
+      "required": [
+        "implementationComplexity",
+        "resourceRequirements",
+        "timeToMarket",
+        "maintainability"
+      ]
+    },
+    "ScalabilityRubric": {
+      "type": "object",
+      "description": "Evaluates long-term scalability and adaptability",
+      "properties": {
+        "brandExtensibility": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "ブランドの拡張可能性"
+            }
+          ]
+        },
+        "channelAdaptability": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "チャネル適応性（マルチチャネル対応）"
+            }
+          ]
+        },
+        "culturalAdaptability": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "文化的適応性（グローバル展開）"
+            }
+          ]
+        },
+        "futureProofing": {
+          "allOf": [
+            { "$ref": "#/definitions/ScoreWithReason" },
+            {
+              "description": "将来性と持続可能性"
+            }
+          ]
+        }
+      },
+      "required": [
+        "brandExtensibility",
+        "channelAdaptability",
+        "culturalAdaptability",
+        "futureProofing"
+      ]
+    }
+  },
+  "weights": {
+    "description": "Default weights for each rubric category",
+    "BrandConsistency": 0.30,
+    "CreativeInnovation": 0.25,
+    "MarketAlignment": 0.25,
+    "TechnicalFeasibility": 0.10,
+    "Scalability": 0.10
+  },
+  "thresholds": {
+    "autoApproval": 90,
+    "humanReview": 70,
+    "autoReject": 40,
+    "improvementAttempts": 3
+  }
+}

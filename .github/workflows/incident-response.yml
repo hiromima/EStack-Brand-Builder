@@ -1,0 +1,309 @@
+name: Incident Response
+
+on:
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+    inputs:
+      incident_type:
+        description: 'Type of incident'
+        required: true
+        type: choice
+        options:
+          - error
+          - failure
+          - performance
+          - security
+      severity:
+        description: 'Incident severity'
+        required: true
+        type: choice
+        options:
+          - low
+          - medium
+          - high
+          - critical
+      title:
+        description: 'Incident title'
+        required: true
+      description:
+        description: 'Incident description'
+        required: true
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  handle-incident:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'incident')) ||
+      github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Report incident (from issue)
+        if: github.event_name == 'issues'
+        id: incident_from_issue
+        run: |
+          node -e "
+          import { IncidentCommanderAgent } from './src/agents/support/IncidentCommanderAgent.js';
+
+          (async () => {
+            const agent = new IncidentCommanderAgent();
+            await agent.initialize();
+
+            // Extract incident info from GitHub issue
+            const incident = {
+              severity: '${{ contains(github.event.issue.labels.*.name, 'P0-Critical') && 'critical' || contains(github.event.issue.labels.*.name, 'P1-High') && 'high' || 'medium' }}',
+              type: 'error',
+              title: process.env.ISSUE_TITLE,
+              description: process.env.ISSUE_BODY,
+              context: {
+                github_issue: '${{ github.event.issue.number }}',
+                created_by: '${{ github.event.issue.user.login }}'
+              }
+            };
+
+            console.log('Reporting incident from GitHub issue #${{ github.event.issue.number }}');
+
+            const incidentRecord = await agent.reportIncident(incident);
+
+            console.log('::set-output name=incident_id::' + incidentRecord.id);
+            console.log('::set-output name=status::' + incidentRecord.status);
+          })();
+          "
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+
+      - name: Report incident (manual)
+        if: github.event_name == 'workflow_dispatch'
+        id: incident_manual
+        run: |
+          node -e "
+          import { IncidentCommanderAgent } from './src/agents/support/IncidentCommanderAgent.js';
+
+          (async () => {
+            const agent = new IncidentCommanderAgent();
+            await agent.initialize();
+
+            const incident = {
+              severity: '${{ github.event.inputs.severity }}',
+              type: '${{ github.event.inputs.incident_type }}',
+              title: '${{ github.event.inputs.title }}',
+              description: '${{ github.event.inputs.description }}',
+              context: {
+                triggered_by: '${{ github.actor }}'
+              }
+            };
+
+            console.log('Reporting manual incident');
+
+            const incidentRecord = await agent.reportIncident(incident);
+
+            console.log('::set-output name=incident_id::' + incidentRecord.id);
+            console.log('::set-output name=status::' + incidentRecord.status);
+          })();
+          "
+
+      - name: Get incident ID
+        id: incident_id
+        run: |
+          INCIDENT_ID="${{ steps.incident_from_issue.outputs.incident_id || steps.incident_manual.outputs.incident_id }}"
+          echo "::set-output name=id::${INCIDENT_ID}"
+          echo "Incident ID: ${INCIDENT_ID}"
+
+      - name: Commit incident log
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .miyabi/logs/incidents.json
+          git commit -m "incident: record ${{ steps.incident_id.outputs.id }}" || echo "No changes to commit"
+
+      - name: Push incident log
+        if: github.event_name == 'workflow_dispatch' || github.event_name == 'issues'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: Comment on issue (resolved)
+        if: |
+          github.event_name == 'issues' &&
+          steps.incident_from_issue.outputs.status == 'resolved'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `✅ **Incident Automatically Resolved**
+
+            **Incident ID:** ${{ steps.incident_id.outputs.id }}
+            **Status:** Resolved via automatic rollback
+
+            The Incident Commander Agent successfully resolved this incident through automatic recovery procedures.
+
+            ### Actions Taken
+            - Root cause analysis performed
+            - Automatic rollback executed
+            - System verified healthy
+
+            This incident has been resolved autonomously and no further action is required.
+
+            ---
+            *Automated response by Incident Commander Agent*
+            `
+            });
+
+            github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+              labels: [...context.payload.issue.labels.map(l => l.name), 'auto-resolved']
+            });
+
+      - name: Comment on issue (degraded)
+        if: |
+          github.event_name == 'issues' &&
+          steps.incident_from_issue.outputs.status == 'degraded'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `⚠️ **System Gracefully Degraded**
+
+            **Incident ID:** ${{ steps.incident_id.outputs.id }}
+            **Status:** System running in degraded mode
+
+            The Incident Commander Agent applied graceful degradation to maintain core functionality.
+
+            ### Actions Taken
+            - Non-critical features disabled
+            - Circuit breaker enabled
+            - Operation rate reduced
+            - Fallback mode activated
+
+            ### Next Steps
+            Human review is recommended to:
+            1. Assess impact of degraded mode
+            2. Determine if full restoration is needed
+            3. Address root cause when resources allow
+
+            The system remains operational but with reduced functionality.
+
+            ---
+            *Automated response by Incident Commander Agent*
+            `
+            });
+
+      - name: Comment on issue (escalated)
+        if: |
+          github.event_name == 'issues' &&
+          steps.incident_from_issue.outputs.status == 'escalated'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `🆘 **Handshake Protocol Activated - Guardian Intervention Required**
+
+            **Incident ID:** ${{ steps.incident_id.outputs.id }}
+            **Status:** Escalated to human
+
+            Autonomous recovery capabilities have been exhausted. @hiromima your intervention is required.
+
+            ### Attempted Recovery Actions
+            The Incident Commander Agent attempted multiple autonomous recovery strategies but was unable to resolve the incident.
+
+            ### Handshake Protocol
+            According to the Three Laws of Autonomy, this incident requires human decision-making.
+
+            ### Guardian Actions Required
+            1. Review the incident escalation report in the workflow logs
+            2. Analyze failed recovery attempts
+            3. Determine appropriate manual intervention
+            4. Update this issue with resolution steps
+
+            The system will remain in its current state pending your guidance.
+
+            ---
+            *Automated escalation by Incident Commander Agent*
+            `
+            });
+
+            github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: [...context.payload.issue.labels.map(l => l.name), 'human-intervention-required'],
+              assignees: ['hiromima']
+            });
+
+      - name: Create incident issue (manual trigger)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const status = '${{ steps.incident_manual.outputs.status }}';
+            const severity = '${{ github.event.inputs.severity }}';
+
+            const icon = status === 'resolved' ? '✅' :
+                        status === 'degraded' ? '⚠️' : '🆘';
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `${icon} Incident: ${{ github.event.inputs.title }}`,
+              body: `## Incident Report
+
+            **Incident ID:** ${{ steps.incident_id.outputs.id }}
+            **Type:** ${{ github.event.inputs.incident_type }}
+            **Severity:** ${severity.toUpperCase()}
+            **Status:** ${status.toUpperCase()}
+            **Triggered by:** @${{ github.actor }}
+
+            ### Description
+            ${{ github.event.inputs.description }}
+
+            ### Response
+            The Incident Commander Agent has processed this incident. Check the workflow logs for detailed response actions.
+
+            ---
+            *Automated incident report*
+            `,
+              labels: ['incident', 'automated', 'P1-High']
+            });
+
+      - name: Upload incident report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: incident-report-${{ steps.incident_id.outputs.id }}
+          path: .miyabi/logs/incidents.json
+          retention-days: 90

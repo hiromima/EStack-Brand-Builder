@@ -1,4 +1,6 @@
 /**
+ * @file CopyAgent
+ * @description CopyAgent の実装
  * CopyAgent - コピー・トーン設計エージェント
  *
  * E:Stack Method™ v5.1 に基づくVoice & Tone設計
@@ -6,6 +8,11 @@
  *
  * @module CopyAgent
  * @version 1.0.0
+ *
+ * @responsibilities
+ * - エージェント固有の処理実装
+ * - BaseAgent インターフェース準拠
+ * - エラーハンドリングとロギング
  */
 
 import { BaseAgent, AgentType } from '../base/BaseAgent.js';
@@ -44,20 +51,29 @@ export const VoiceArchetype = {
  */
 export class CopyAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定
+   * @param {Object} options.logger - ロガー
+   * @param {Object} options.knowledge - ナレッジベース
+   * @param {Object} [options.variationCount] - 生成バリエーション数
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.COPY,
       name: 'CopyAgent'
     });
 
-    this.options = config.options || {};
-    this.variationCount = this.options.variationCount || 3;
+    this.variationCount = options.variationCount || 3;
+  }
+
+  /**
+   * エージェントの初期化
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    await super.initialize();
+    this.logger?.info(`[${this.name}] エージェント固有の初期化完了`);
   }
 
   /**

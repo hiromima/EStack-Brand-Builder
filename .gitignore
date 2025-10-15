@@ -35,4 +35,16 @@ coverage/
 tmp/
 temp/
 *.tmp
-.env
+
+# Database files
+chroma_db/
+*.db
+*.sqlite
+
+# AI logs
+.ai/logs/
+.miyabi/logs/
+
+# Backups
+*.backup
+backup-*/

@@ -1,0 +1,131 @@
+# Miyabi Agent System Configuration
+# EStack-Brand-Builder プロジェクト用設定
+
+version: "1.0"
+
+project:
+  name: "EStack-Brand-Builder"
+  type: "autonomous-ai-system"
+  description: "完全自律型 AI エージェントシステムによるブランド構築プラットフォーム"
+
+# エージェント定義
+agents:
+  orchestrator:
+    enabled: true
+    role: "system-orchestrator"
+    capabilities:
+      - agent-coordination
+      - task-routing
+      - conflict-resolution
+    config:
+      max_parallel_agents: 3
+      timeout_seconds: 300
+
+  brand_strategist:
+    enabled: true
+    role: "brand-strategy"
+    capabilities:
+      - persona-development
+      - brand-philosophy
+      - market-positioning
+    models:
+      primary: "claude-3-5-sonnet-20241022"
+      fallback: "gpt-4o"
+
+  creative_concept:
+    enabled: true
+    role: "creative-concept"
+    capabilities:
+      - visual-direction
+      - moodboard-creation
+      - design-motifs
+    models:
+      primary: "claude-3-5-sonnet-20241022"
+      fallback: "gpt-4o"
+
+  copywriter:
+    enabled: true
+    role: "copywriting"
+    capabilities:
+      - brand-voice
+      - slogans
+      - messaging
+    models:
+      primary: "claude-3-5-sonnet-20241022"
+      fallback: "gpt-4o"
+
+# ツール設定
+tools:
+  github:
+    enabled: true
+    auto_issue_creation: true
+    auto_pr_creation: false
+    labels:
+      - "miyabi-agent"
+      - "autonomous"
+
+  evaluation:
+    enabled: true
+    quality_threshold: 80
+    auto_retry_on_failure: true
+    max_retries: 2
+
+  knowledge_base:
+    enabled: true
+    storage: "local"
+    path: ".claude/knowledge"
+
+# 実行設定
+execution:
+  mode: "parallel"
+  max_waves: 5
+  dry_run: false
+
+  budgets:
+    api_calls_per_hour: 100
+    tokens_per_day: 1000000
+    cost_limit_usd: 50
+
+# セーフティ設定
+safety:
+  circuit_breaker:
+    enabled: true
+    cost_threshold_usd: 45
+    error_threshold: 10
+
+  approval_required:
+    - external-api-calls
+    - file-deletions
+    - github-push
+
+# ログ設定
+logging:
+  level: "info"
+  output: ".claude/logs"
+  retention_days: 30
+  formats:
+    - json
+    - markdown
+
+# スラッシュコマンド設定
+commands:
+  prefix: "/"
+  enabled:
+    - miyabi
+    - agent
+    - eval
+    - workflow
+
+# 統合設定
+integrations:
+  claude_code:
+    enabled: true
+    auto_sync: true
+
+  vector_db:
+    provider: "pinecone"
+    enabled: false
+
+  graph_db:
+    provider: "neo4j"
+    enabled: false

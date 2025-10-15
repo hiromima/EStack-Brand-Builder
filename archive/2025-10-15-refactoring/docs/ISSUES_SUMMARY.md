@@ -1,4 +1,4 @@
-# Brand Builder Issues Summary
+# EStack-Brand-Builder Issues Summary
 
 Milestone 2.5: External Knowledge Integration
 
