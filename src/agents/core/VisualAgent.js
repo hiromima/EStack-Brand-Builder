@@ -1,8 +1,11 @@
 /**
- * VisualAgent - ビジュアルシステム設計エージェント
- *
- * Identity System Meta Principles に基づくVIシステム設計
- * Brand Principles Atlas v1.1 準拠
+ * @file VisualAgent.js
+ * @description ビジュアルシステム設計エージェント
+ * @responsibilities
+ * - Identity System Meta Principles に基づくVIシステム設計
+ * - Brand Principles Atlas v1.1 準拠
+ * - カラーシステム、タイポグラフィ、グリッドシステムの設計
+ * - ビジュアルアイデンティティガイドライン生成
  *
  * @module VisualAgent
  * @version 1.0.0
@@ -45,19 +48,32 @@ export const SystemLayer = {
  */
 export class VisualAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定
+   * @param {Object} options.logger - ロガー
+   * @param {Object} options.knowledge - ナレッジベース
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.VISUAL,
       name: 'VisualAgent'
     });
 
-    this.options = config.options || {};
+    this.options = options;
+  }
+
+  /**
+   * エージェント初期化
+   * BaseAgent準拠の必須メソッド
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    this.logger?.info('[VisualAgent] Initializing...');
+
+    // 必要な初期化処理があればここに追加
+
+    this.logger?.info('[VisualAgent] Initialized successfully');
   }
 
   /**

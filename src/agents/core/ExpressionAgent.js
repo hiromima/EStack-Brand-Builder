@@ -1,8 +1,12 @@
 /**
- * ExpressionAgent - 表現案生成エージェント
- *
- * E:Stack Expression Layer の具体化
- * クリエイティブ分岐による複数案生成
+ * @file ExpressionAgent.js
+ * @description 表現設計エージェント
+ * @responsibilities
+ * - ブランド表現の設計と生成
+ * - コアメッセージの複数案生成
+ * - タグラインのクリエイティブ分岐
+ * - ビジュアルコンセプトの提案
+ * - E:Stack Expression Layer の具体化
  *
  * @module ExpressionAgent
  * @version 1.0.0
@@ -19,20 +23,32 @@ import { BaseAgent, AgentType } from '../base/BaseAgent.js';
  */
 export class ExpressionAgent extends BaseAgent {
   /**
-   * @param {Object} config - エージェント設定
-   * @param {Object} config.logger - ロガー
-   * @param {Object} config.knowledge - ナレッジベース
-   * @param {Object} [config.options] - 追加オプション
+   * @param {Object} options - エージェント設定
+   * @param {Object} [options.logger] - ロガー
+   * @param {Object} [options.knowledge] - ナレッジベース
+   * @param {number} [options.branchCount] - 生成案数
    */
-  constructor(config) {
+  constructor(options = {}) {
     super({
-      ...config,
+      ...options,
       type: AgentType.EXPRESSION,
       name: 'ExpressionAgent'
     });
 
-    this.options = config.options || {};
-    this.branchCount = this.options.branchCount || 3; // デフォルト3案
+    this.options = options;
+    this.branchCount = options.branchCount || 3; // デフォルト3案
+  }
+
+  /**
+   * エージェント初期化
+   * BaseAgent インターフェース準拠
+   *
+   * @returns {Promise<void>}
+   */
+  async initialize() {
+    this.logger?.info('[ExpressionAgent] Initializing...');
+    this.logger?.info(`[ExpressionAgent] Branch count: ${this.branchCount}`);
+    this.logger?.info('[ExpressionAgent] Initialized successfully');
   }
 
   /**
