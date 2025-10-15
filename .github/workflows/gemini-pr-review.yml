@@ -25,21 +25,42 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run Gemini CLI
-        uses: google-github-actions/run-gemini-cli@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          prompt: |
-            You are a senior code reviewer for the EStack-Brand-Builder project.
+          node-version: '20'
 
-            Review Focus:
-            - BaseAgent compliance pattern
-            - Code quality and best practices
-            - Security vulnerabilities
-            - Performance optimizations
-            - Documentation completeness
+      - name: Install Gemini SDK
+        run: npm install @google/generative-ai
 
-            Provide constructive feedback with specific suggestions.
+      - name: Run Gemini Code Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node -e "
+          const { GoogleGenerativeAI } = require('@google/generative-ai');
+          const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+          const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+
+          (async () => {
+            const result = await model.generateContent(\`
+              You are a senior code reviewer for the EStack-Brand-Builder project.
+
+              Review Focus:
+              - BaseAgent compliance pattern
+              - Code quality and best practices
+              - Security vulnerabilities
+              - Performance optimizations
+              - Documentation completeness
+
+              Provide constructive feedback with specific suggestions.
+            \`);
+            console.log('Review:', result.response.text());
+          })().catch(err => {
+            console.error('Gemini API Error:', err);
+            process.exit(0); // Don't fail the workflow
+          });
+          "
 
       - name: Comment on PR (Auto Review)
         if: github.event_name == 'pull_request'
@@ -100,18 +121,31 @@ jobs:
           node scripts/e2e_workflow_test.js || true
 
       - name: Quality Report with Gemini
-        uses: google-github-actions/run-gemini-cli@v1
-        with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          prompt: |
-            Analyze the test results and provide a quality assessment.
-            Focus on:
-            - Test coverage
-            - Agent compliance
-            - Integration health
-            - Production readiness
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node -e "
+          const { GoogleGenerativeAI } = require('@google/generative-ai');
+          const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+          const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
-            Provide a concise summary with recommendations.
+          (async () => {
+            const result = await model.generateContent(\`
+              Analyze the test results and provide a quality assessment.
+              Focus on:
+              - Test coverage
+              - Agent compliance
+              - Integration health
+              - Production readiness
+
+              Provide a concise summary with recommendations.
+            \`);
+            console.log('Quality Report:', result.response.text());
+          })().catch(err => {
+            console.error('Gemini API Error:', err);
+            process.exit(0);
+          });
+          "
 
       - name: Post Quality Report
         uses: actions/github-script@v7
