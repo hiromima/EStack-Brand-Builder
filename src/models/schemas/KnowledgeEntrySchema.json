@@ -1,0 +1,253 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://brand-builder.ai/schemas/KnowledgeEntry.json",
+  "title": "KnowledgeEntry",
+  "description": "統一知識エントリデータモデル - Brand Builder Knowledge System",
+  "type": "object",
+  "required": ["id", "type", "title", "content", "source", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "一意識別子 (UUID v4)",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["academic", "design", "method", "standard", "case-study", "reference"],
+      "description": "知識エントリのタイプ"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "タイトル"
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1,
+      "description": "本文コンテンツ"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "要約（オプション）"
+    },
+    "source": {
+      "type": "object",
+      "required": ["type", "name", "url", "publishedDate", "accessedDate"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["journal", "book", "website", "gallery", "conference", "report"],
+          "description": "ソースタイプ"
+        },
+        "name": {
+          "type": "string",
+          "description": "ソース名"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "ソース URL"
+        },
+        "author": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "著者リスト"
+        },
+        "publishedDate": {
+          "type": "string",
+          "format": "date",
+          "description": "公開日 (YYYY-MM-DD)"
+        },
+        "accessedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "アクセス日時 (ISO 8601)"
+        },
+        "doi": {
+          "type": "string",
+          "pattern": "^10\\.\\d{4,}/.*$",
+          "description": "DOI (学術論文の場合)"
+        },
+        "isbn": {
+          "type": "string",
+          "pattern": "^(97[89])?\\d{9}(\\d|X)$",
+          "description": "ISBN (書籍の場合)"
+        }
+      },
+      "description": "出典情報"
+    },
+    "citation": {
+      "type": "object",
+      "required": ["apa", "mla", "ieee"],
+      "properties": {
+        "apa": {
+          "type": "string",
+          "description": "APA 7th edition 形式"
+        },
+        "mla": {
+          "type": "string",
+          "description": "MLA 8th edition 形式"
+        },
+        "ieee": {
+          "type": "string",
+          "description": "IEEE 形式"
+        },
+        "bibtex": {
+          "type": "string",
+          "description": "BibTeX 形式"
+        }
+      },
+      "description": "引用情報"
+    },
+    "credibility": {
+      "type": "object",
+      "required": ["score"],
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "信頼性スコア (0-100)"
+        },
+        "peerReviewed": {
+          "type": "boolean",
+          "description": "査読済みフラグ"
+        },
+        "citations": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "被引用数"
+        },
+        "sourceRank": {
+          "type": "string",
+          "enum": ["Q1", "Q2", "Q3", "Q4", "N/A"],
+          "description": "ジャーナルランク"
+        },
+        "impactFactor": {
+          "type": "number",
+          "minimum": 0,
+          "description": "インパクトファクター"
+        }
+      },
+      "description": "信頼性指標"
+    },
+    "relevance": {
+      "type": "object",
+      "required": ["categories", "keywords"],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "branding",
+              "logo-design",
+              "typography",
+              "color-theory",
+              "visual-identity",
+              "brand-strategy",
+              "market-research",
+              "user-experience",
+              "design-system",
+              "creative-direction"
+            ]
+          },
+          "minItems": 1,
+          "description": "カテゴリ"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "キーワード"
+        },
+        "relatedEntries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "description": "関連エントリ ID リスト"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "フリータグ"
+        }
+      },
+      "description": "関連性情報"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["addedAt", "updatedAt", "version", "status"],
+      "properties": {
+        "addedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "追加日時 (ISO 8601)"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新日時 (ISO 8601)"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "バージョン番号"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "archived", "pending-review", "deprecated"],
+          "description": "ステータス"
+        },
+        "addedBy": {
+          "type": "string",
+          "description": "追加者 (エージェント名)"
+        },
+        "reviewedBy": {
+          "type": "string",
+          "description": "レビュー者"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "レビュー日時"
+        }
+      },
+      "description": "メタデータ"
+    },
+    "vector": {
+      "type": "object",
+      "properties": {
+        "embedding": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "ベクトル埋め込み"
+        },
+        "model": {
+          "type": "string",
+          "enum": ["text-embedding-3-small", "text-embedding-3-large", "gemini-embedding-001"],
+          "description": "使用モデル"
+        },
+        "dimension": {
+          "type": "integer",
+          "enum": [512, 1536, 3072, 768],
+          "description": "ベクトル次元"
+        }
+      },
+      "description": "ベクトル埋め込み情報"
+    }
+  },
+  "additionalProperties": false
+}

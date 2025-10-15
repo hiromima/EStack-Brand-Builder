@@ -1,5 +1,5 @@
 {
-  "name": "brand-builder",
+  "name": "estack-brand-builder",
   "version": "1.0.0",
   "description": "完全自律型 AI エージェントシステムによるブランド構築プラットフォーム",
   "main": "src/index.js",
@@ -22,7 +22,16 @@
     "workflow": "node src/cli/workflow.js",
     "convert:symbols": "node scripts/convert_symbols.js",
     "convert:symbols:dry": "node scripts/convert_symbols.js --dry-run --verbose",
-    "convert:symbols:help": "node scripts/convert_symbols.js --help"
+    "convert:symbols:help": "node scripts/convert_symbols.js --help",
+    "eval:dashboard": "node src/cli/evaluation-dashboard.js",
+    "eval:dashboard:detailed": "node src/cli/evaluation-dashboard.js detailed",
+    "test:evaluation": "node scripts/test_evaluation_system.js",
+    "demo:phase0": "node scripts/demo_phase0.js",
+    "test:miyabi": "node scripts/test_miyabi_system.js",
+    "test:packages": "node scripts/test_all_packages.js",
+    "verify": "node scripts/verify_system.js",
+    "verify:dry": "node scripts/verify_dry_run.js",
+    "verify:miyabi": "node scripts/verify_miyabi_setup.js"
   },
   "keywords": [
     "brand-builder",
@@ -36,15 +45,19 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hiromima/brand-builder.git"
+    "url": "https://github.com/hiromima/EStack-Brand-Builder.git"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.65.0",
+    "@google/generative-ai": "^0.24.1",
     "@pinecone-database/pinecone": "^6.1.2",
+    "chromadb": "^3.0.17",
     "dotenv": "^17.2.3",
     "glob": "^11.0.3",
+    "js-yaml": "^4.1.0",
     "miyabi-agent-sdk": "^0.1.0-alpha.1",
     "neo4j-driver": "^6.0.0",
     "openai": "^6.3.0"

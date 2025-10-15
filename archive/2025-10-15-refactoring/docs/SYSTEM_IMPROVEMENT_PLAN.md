@@ -1,4 +1,4 @@
-# Brand Builder System Improvement Plan
+# EStack-Brand-Builder System Improvement Plan
 ## GPT-3 時代から現代 AI への進化計画
 
 最終更新: 2025-10-14
@@ -544,4 +544,4 @@ Week 13-14: #114 統合テスト + #115 ドキュメント整備
 
 ---
 
-> **本改善計画により、Brand Builder は真の「素晴らしいブランディングのためのシステム」となります**
+> **本改善計画により、EStack-Brand-Builder は真の「素晴らしいブランディングのためのシステム」となります**

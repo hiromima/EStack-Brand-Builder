@@ -1,0 +1,175 @@
+name: Agent Onboarding
+
+on:
+  push:
+    paths:
+      - 'src/agents/**/*Agent.js'
+  pull_request:
+    paths:
+      - 'src/agents/**/*Agent.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  onboard-agents:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run agent onboarding
+        id: onboarding
+        run: |
+          node -e "
+          import { SystemRegistryAgent } from './src/agents/support/SystemRegistryAgent.js';
+
+          (async () => {
+            const agent = new SystemRegistryAgent();
+            await agent.initialize();
+
+            console.log('Running agent onboarding process...');
+
+            const report = await agent.onboardNewAgents();
+
+            console.log('');
+            console.log('Onboarding completed');
+            console.log('New agents:', report.new_agents.length);
+            console.log('Registered:', report.registered);
+            console.log('Failed:', report.failed);
+
+            // Generate report
+            const reportText = agent.generateOnboardingReport(report);
+            console.log(reportText);
+
+            // Export for GitHub Actions
+            console.log('::set-output name=new_agents::' + report.new_agents.length);
+            console.log('::set-output name=registered::' + report.registered);
+            console.log('::set-output name=failed::' + report.failed);
+
+            if (report.failed > 0) {
+              console.log('::warning::' + report.failed + ' agent(s) failed compliance tests');
+            }
+
+            process.exit(report.failed > 0 ? 1 : 0);
+          })();
+          "
+
+      - name: Commit agent registry
+        if: steps.onboarding.outputs.registered > 0
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .miyabi/agent_registry.json
+          git commit -m "chore: update agent registry - registered ${{ steps.onboarding.outputs.registered }} agent(s)" || echo "No changes to commit"
+
+      - name: Push changes
+        if: steps.onboarding.outputs.registered > 0 && github.event_name == 'push'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Create compliance failure issue
+        if: steps.onboarding.outputs.failed > 0
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const failed = '${{ steps.onboarding.outputs.failed }}';
+            const registered = '${{ steps.onboarding.outputs.registered }}';
+            const newAgents = '${{ steps.onboarding.outputs.new_agents }}';
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `⚠️ Agent Compliance Failure: ${failed} agent(s) failed tests`,
+              body: `## Agent Onboarding Report
+
+            **New Agents Detected:** ${newAgents}
+            **Successfully Registered:** ${registered}
+            **Failed Compliance:** ${failed}
+
+            ### Summary
+
+            The agent onboarding process detected ${newAgents} new agent(s), but ${failed} failed compliance tests.
+
+            ### Failed Compliance Tests
+
+            Agents that failed compliance tests are not registered in the system and cannot be used for task routing.
+
+            ### Required Actions
+
+            1. Review the workflow logs to identify which tests failed
+            2. Fix the compliance issues in the agent code
+            3. Common failures:
+               - Missing required methods (initialize)
+               - Incomplete documentation
+               - Missing constructor with options parameter
+               - Constitution violations
+
+            ### The Three Laws of Autonomy
+
+            All agents must adhere to:
+            1. **Law of Objectivity** - Data-driven decisions with logging
+            2. **Law of Self-Sufficiency** - Error handling and async patterns
+            3. **Law of Traceability** - State persistence and timestamps
+
+            ### Next Steps
+
+            1. Check the detailed test results in the workflow logs
+            2. Update the failing agent(s) to meet compliance requirements
+            3. Push the fixes to trigger re-onboarding
+
+            This issue was automatically created by the Agent Onboarding workflow.
+            `,
+              labels: ['agent-compliance', 'P2-Medium', 'automated']
+            });
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const registered = '${{ steps.onboarding.outputs.registered }}';
+            const failed = '${{ steps.onboarding.outputs.failed }}';
+            const newAgents = '${{ steps.onboarding.outputs.new_agents }}';
+
+            const icon = failed > 0 ? '⚠️' : '✅';
+            const status = failed > 0 ? 'with warnings' : 'successfully';
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `${icon} **Agent Onboarding completed ${status}**
+
+            - New agents detected: ${newAgents}
+            - Registered: ${registered}
+            - Failed compliance: ${failed}
+
+            ${failed > 0 ? '⚠️ Some agents failed compliance tests. Check the workflow logs for details.' : '✅ All agents passed compliance tests and have been registered.'}
+            `
+            });
+
+      - name: Upload onboarding report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-onboarding-report
+          path: .miyabi/agent_registry.json
+          retention-days: 30

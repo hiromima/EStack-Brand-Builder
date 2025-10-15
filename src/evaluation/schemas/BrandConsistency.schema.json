@@ -1,0 +1,189 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://brand-builder.ai/schemas/BrandConsistency.json",
+  "title": "BrandConsistencyEvaluation",
+  "description": "ブランド一貫性評価スキーマ - Brand Builder Evaluation System",
+  "type": "object",
+  "required": ["overallScore", "dimensions", "timestamp"],
+  "properties": {
+    "overallScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "総合スコア (0-100)"
+    },
+    "dimensions": {
+      "type": "object",
+      "required": [
+        "visualConsistency",
+        "messageConsistency",
+        "toneConsistency",
+        "valueAlignment",
+        "identityCoherence"
+      ],
+      "properties": {
+        "visualConsistency": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "ビジュアル一貫性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "messageConsistency": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "メッセージ一貫性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "toneConsistency": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "トーン一貫性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "valueAlignment": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "価値観整合性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        },
+        "identityCoherence": {
+          "type": "object",
+          "required": ["score", "feedback"],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "アイデンティティ統一性スコア"
+            },
+            "feedback": {
+              "type": "string",
+              "description": "フィードバック"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "根拠"
+            }
+          }
+        }
+      },
+      "description": "評価次元"
+    },
+    "strengths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "強み"
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "弱み"
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "改善提案"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "評価日時 (ISO 8601)"
+    },
+    "evaluator": {
+      "type": "string",
+      "enum": ["claude-sonnet-4.5", "gpt-5", "gemini-2.5-pro"],
+      "description": "評価モデル"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "スキーマバージョン"
+        },
+        "evaluationId": {
+          "type": "string",
+          "description": "評価 ID"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

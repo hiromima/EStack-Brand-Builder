@@ -1,4 +1,4 @@
-# Brand Builder Implementation Plan v1.0
+# EStack-Brand-Builder Implementation Plan v1.0
 
 ---
 

@@ -1,10 +1,10 @@
-# Brand Builder System Architecture v1.0
+# EStack-Brand-Builder System Architecture v1.0
 
 ---
 
 ## 0. システム概要
 
-Brand Builder は、**E:Stack Method™** と **Brand Framer Method™** を完全自律型 AI エージェントシステムとして実装したブランド構築プラットフォームです。
+EStack-Brand-Builder は、**E:Stack Method™** と **Brand Framer Method™** を完全自律型 AI エージェントシステムとして実装したブランド構築プラットフォームです。
 
 ### 設計原則
 

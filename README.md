@@ -1,10 +1,10 @@
-# Brand Builder
+# EStack-Brand-Builder
 
 完全自律型 AI エージェントシステムによるブランド構築プラットフォーム
 
 ## 概要
 
-Brand Builder は、miyabi-agent-sdk を活用した自律型エージェントシステムで、GitHub Issue ベースの完全自動化ワークフローを実現します。
+EStack-Brand-Builder は、miyabi-agent-sdk を活用した自律型エージェントシステムで、GitHub Issue ベースの完全自動化ワークフローを実現します。
 
 ## 特徴
 
@@ -22,15 +22,95 @@ npm install
 # 環境変数設定
 cp .env.example .env
 # .env を編集して必要な認証情報を設定
+
+# システム検証（ドライラン - API キー不要）
+npm run verify:dry
+
+# システム検証（完全版 - API キー必要）
+npm run verify
+```
+
+## 利用可能なコマンド
+
+### Miyabi SDK
+```bash
+npx miyabi-agent-sdk analyze <issue>    # Issue 分析
+npx miyabi-agent-sdk generate <issue>   # コード生成
+npx miyabi-agent-sdk review <files>     # コードレビュー
+npx miyabi-agent-sdk workflow <issue>   # フルワークフロー
+npx miyabi-agent-sdk help               # ヘルプ表示
+```
+
+### テスト・評価
+```bash
+npm run test:evaluation          # 評価システムテスト
+npm run eval:dashboard           # 評価ダッシュボード
+npm run eval:dashboard:detailed  # 詳細ダッシュボード
+npm run test          # 全テスト実行
+npm run lint          # コード品質チェック
+```
+
+### 開発
+```bash
+npm run dev           # 開発モード（ホットリロード）
+npm run format        # コード整形
+npm run docs          # ドキュメント生成
 ```
 
 ## 依存関係
 
+### 必須パッケージ
+- **@anthropic-ai/sdk** (^0.65.0) — Claude API SDK
+- **@google/generative-ai** (^0.24.1) — Gemini API SDK
+- **openai** (^6.3.0) — OpenAI API SDK
 - **miyabi-agent-sdk** (^0.1.0-alpha.1) — 自律型エージェント SDK
+- **chromadb** (^3.0.17) — Vector Database
+- **neo4j-driver** (^6.0.0) — Graph Database
+- **js-yaml** (^4.1.0) — YAML パーサー
+- **glob** (^11.0.3) — ファイルパターンマッチング
+
+## システムアーキテクチャ
+
+### Miyabi 自律システム
+完全自律型 AI エージェントシステム - **The Three Laws of Autonomy**
+
+1. **Law of Objectivity** — データ駆動の意思決定
+2. **Law of Self-Sufficiency** — 人間介入の最小化
+3. **Law of Traceability** — GitHub への全記録
+
+#### Support Agents (5 agents)
+- `CostMonitoringAgent` — 経済的サーキットブレーカー
+- `IncidentCommanderAgent` — 自己修復と Handshake Protocol
+- `SystemRegistryAgent` — エージェント自動登録
+- `AuditAgent` — セキュリティ監査
+- `CoordinatorAgent` — タスクルーティング
+
+#### GitHub Actions Workflows (4 workflows)
+- `economic-circuit-breaker.yml` — コスト監視（毎時実行）
+- `agent-onboarding.yml` — エージェント登録
+- `incident-response.yml` — インシデント対応
+- `quality-gate.yml` — 品質ゲート（自動承認 ≥90点）
 
 ## ドキュメント
 
+### プロジェクト管理
+- [MASTER_ISSUE.md](docs/MASTER_ISSUE.md) — プロジェクト全体像とステータス
+- [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md) — プロジェクト構造詳細
+- [PROGRESS.md](docs/PROGRESS.md) — 進捗管理
+
+### システム設計
 - [AGENTS.md](docs/AGENTS.md) — 自律型システムの憲法と運用原則
+- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — システムアーキテクチャ
+
+### 実装ガイド
+- [MIYABI_SDK_USAGE.md](docs/MIYABI_SDK_USAGE.md) — Miyabi SDK 使用ガイド
+- [VECTOR_EMBEDDINGS_GUIDE.md](docs/VECTOR_EMBEDDINGS_GUIDE.md) — ベクター埋め込みガイド
+- [SETUP_GUIDE.md](docs/SETUP_GUIDE.md) — セットアップ手順
+
+### 完了報告
+- [MIYABI_COMPLETE.md](docs/MIYABI_COMPLETE.md) — Miyabi システム完成報告
+- [PHASE0_COMPLETE.md](docs/PHASE0_COMPLETE.md) — Phase 0 完成報告
+- [DRY_RUN_VERIFICATION_REPORT.md](docs/DRY_RUN_VERIFICATION_REPORT.md) — 検証レポート
 
 ## ライセンス
 

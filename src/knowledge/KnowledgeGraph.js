@@ -128,6 +128,106 @@ export class KnowledgeGraph {
   }
 
   /**
+   * 複数エントリを一括追加
+   * @param {import('../models/KnowledgeEntry.js').KnowledgeEntry[]} entries - エントリ配列
+   * @returns {Promise<void>}
+   */
+  async addEntries(entries) {
+    await this.initialize();
+
+    try {
+      // 並列処理で追加（Neo4jは同時書き込みをサポート）
+      await Promise.all(entries.map(entry => this.addEntry(entry)));
+      console.log(`✅ Added ${entries.length} entries to KnowledgeGraph`);
+    } catch (error) {
+      console.error('❌ Batch add failed:', error.message);
+      throw new Error(`Failed to add entries to KnowledgeGraph: ${error.message}`);
+    }
+  }
+
+  /**
+   * エントリを更新
+   * @param {import('../models/KnowledgeEntry.js').KnowledgeEntry} entry - 更新するエントリ
+   * @returns {Promise<void>}
+   */
+  async updateEntry(entry) {
+    await this.initialize();
+
+    const session = this.driver.session();
+
+    try {
+      // 既存のリレーションシップを削除してから再作成
+      await session.run(
+        `MATCH (e:KnowledgeEntry {id: $id})
+         OPTIONAL MATCH (e)-[r]-()
+         DELETE r`,
+        { id: entry.id }
+      );
+
+      // ノード更新
+      await session.run(
+        `MATCH (e:KnowledgeEntry {id: $id})
+         SET e.type = $type,
+             e.title = $title,
+             e.summary = $summary,
+             e.credibilityScore = $credibilityScore,
+             e.peerReviewed = $peerReviewed,
+             e.status = $status,
+             e.updatedAt = $updatedAt`,
+        {
+          id: entry.id,
+          type: entry.type,
+          title: entry.title,
+          summary: entry.summary,
+          credibilityScore: entry.credibility.score,
+          peerReviewed: entry.credibility.peerReviewed,
+          status: entry.metadata.status,
+          updatedAt: entry.metadata.updatedAt.toISOString()
+        }
+      );
+
+      // カテゴリリレーション再作成
+      for (const category of entry.relevance.categories) {
+        await session.run(
+          `MERGE (c:Category {name: $category})
+           WITH c
+           MATCH (e:KnowledgeEntry {id: $id})
+           MERGE (e)-[:BELONGS_TO]->(c)`,
+          { id: entry.id, category }
+        );
+      }
+
+      // キーワードリレーション再作成
+      for (const keyword of entry.relevance.keywords) {
+        await session.run(
+          `MERGE (k:Keyword {name: $keyword})
+           WITH k
+           MATCH (e:KnowledgeEntry {id: $id})
+           MERGE (e)-[:TAGGED_WITH]->(k)`,
+          { id: entry.id, keyword }
+        );
+      }
+
+      // 関連エントリリレーション再作成
+      for (const relatedId of entry.relevance.relatedEntries) {
+        await session.run(
+          `MATCH (e1:KnowledgeEntry {id: $id1})
+           MATCH (e2:KnowledgeEntry {id: $id2})
+           MERGE (e1)-[:RELATED_TO]->(e2)`,
+          { id1: entry.id, id2: relatedId }
+        );
+      }
+
+      console.log(`✅ Updated entry in KnowledgeGraph: ${entry.id}`);
+    } catch (error) {
+      console.error(`❌ Failed to update entry ${entry.id}:`, error.message);
+      throw new Error(`Failed to update entry in KnowledgeGraph: ${error.message}`);
+    } finally {
+      await session.close();
+    }
+  }
+
+  /**
    * 関連エントリを検索
    * @param {string} entryId - 基準エントリID
    * @param {Object} options - 検索オプション
@@ -142,8 +242,8 @@ export class KnowledgeGraph {
     const session = this.driver.session();
 
     try {
-      const result = await session.run(
-        `MATCH path = (e:KnowledgeEntry {id: $id})-[:RELATED_TO*1..$depth]-(related)
+      // Cypherでは変数パス長を直接指定する必要があるため、文字列補間を使用
+      const query = `MATCH path = (e:KnowledgeEntry {id: $id})-[:RELATED_TO*1..${depth}]-(related)
          WHERE related.status = 'active'
          RETURN DISTINCT related.id AS id,
                          related.title AS title,
@@ -151,8 +251,11 @@ export class KnowledgeGraph {
                          related.credibilityScore AS credibilityScore,
                          length(path) AS distance
          ORDER BY credibilityScore DESC, distance ASC
-         LIMIT $limit`,
-        { id: entryId, depth: neo4j.int(depth), limit: neo4j.int(limit) }
+         LIMIT $limit`;
+
+      const result = await session.run(
+        query,
+        { id: entryId, limit: neo4j.int(limit) }
       );
 
       return result.records.map(record => ({
@@ -310,6 +413,33 @@ export class KnowledgeGraph {
   }
 
   /**
+   * 複数エントリを削除
+   * @param {string[]} ids - 削除するエントリIDの配列
+   * @returns {Promise<void>}
+   */
+  async deleteEntries(ids) {
+    await this.initialize();
+
+    const session = this.driver.session();
+
+    try {
+      await session.run(
+        `MATCH (e:KnowledgeEntry)
+         WHERE e.id IN $ids
+         DETACH DELETE e`,
+        { ids }
+      );
+
+      console.log(`✅ Deleted ${ids.length} entries from KnowledgeGraph`);
+    } catch (error) {
+      console.error('❌ Batch delete failed:', error.message);
+      throw new Error(`Failed to delete entries from KnowledgeGraph: ${error.message}`);
+    } finally {
+      await session.close();
+    }
+  }
+
+  /**
    * グラフ統計を取得
    * @returns {Promise<Object>} 統計情報
    */
@@ -332,10 +462,10 @@ export class KnowledgeGraph {
 
       const record = result.records[0];
       return {
-        entries: record.get('entries').toNumber(),
-        categories: record.get('categories').toNumber(),
-        keywords: record.get('keywords').toNumber(),
-        relationships: record.get('relationships').toNumber()
+        totalEntries: record.get('entries').toNumber(),
+        totalCategories: record.get('categories').toNumber(),
+        totalKeywords: record.get('keywords').toNumber(),
+        totalRelationships: record.get('relationships').toNumber()
       };
     } catch (error) {
       console.error('❌ Failed to get stats:', error.message);
@@ -354,10 +484,10 @@ export class KnowledgeGraph {
       await this.initialize();
       const stats = await this.getStats();
       console.log('✅ KnowledgeGraph connection test successful');
-      console.log(`   Entries: ${stats.entries}`);
-      console.log(`   Categories: ${stats.categories}`);
-      console.log(`   Keywords: ${stats.keywords}`);
-      console.log(`   Relationships: ${stats.relationships}`);
+      console.log(`   Entries: ${stats.totalEntries}`);
+      console.log(`   Categories: ${stats.totalCategories}`);
+      console.log(`   Keywords: ${stats.totalKeywords}`);
+      console.log(`   Relationships: ${stats.totalRelationships}`);
       return true;
     } catch (error) {
       console.error('❌ KnowledgeGraph connection test failed:', error.message);

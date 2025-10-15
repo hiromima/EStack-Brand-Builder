@@ -7,7 +7,7 @@
  */
 
 import 'dotenv/config';
-import { VectorStore } from '../src/knowledge/VectorStore.js';
+import { VectorStore } from '../src/knowledge/VectorStoreChroma.js';
 import { KnowledgeGraph } from '../src/knowledge/KnowledgeGraph.js';
 
 async function testConnections() {
@@ -18,8 +18,8 @@ async function testConnections() {
   let vectorSuccess = false;
   let graphSuccess = false;
 
-  // Test Vector Store (Pinecone)
-  console.log('🔍 Testing Vector Store (Pinecone)...\n');
+  // Test Vector Store (Chroma)
+  console.log('🔍 Testing Vector Store (Chroma - Local)...\n');
   try {
     const vectorStore = new VectorStore();
     vectorSuccess = await vectorStore.testConnection();
@@ -43,7 +43,7 @@ async function testConnections() {
   console.log('\n' + '='.repeat(60));
   console.log('Test Summary');
   console.log('='.repeat(60));
-  console.log(`Vector Store (Pinecone): ${vectorSuccess ? '✅ PASS' : '❌ FAIL'}`);
+  console.log(`Vector Store (Chroma): ${vectorSuccess ? '✅ PASS' : '❌ FAIL'}`);
   console.log(`Knowledge Graph (Neo4j): ${graphSuccess ? '✅ PASS' : '❌ FAIL'}`);
   console.log('='.repeat(60) + '\n');
 

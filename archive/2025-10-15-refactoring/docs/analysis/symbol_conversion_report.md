@@ -228,7 +228,7 @@ npm run convert:symbols:help
 ## Backup Information
 
 **Backup Directory**: `atlas-knowledge-base.backup-2025-10-13T21-35-42`
-**Location**: `/Users/enhanced/Desktop/program/Brand Builder/`
+**Location**: `/Users/enhanced/Desktop/program/EStack-Brand-Builder/`
 **Status**: ✅ Successfully created before conversion
 
 ### Restoration Instructions

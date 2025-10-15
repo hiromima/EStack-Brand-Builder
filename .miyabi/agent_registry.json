@@ -1,0 +1,1679 @@
+{
+  "version": "1.0",
+  "agents": [
+    {
+      "name": "SystemRegistryAgent",
+      "file_name": "SystemRegistryAgent",
+      "description": "Agent onboarding, compliance testing, and registration system",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/support/SystemRegistryAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "SystemRegistryAgent",
+        "timestamp": "2025-10-14T14:33:08.339Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-14T14:33:08.340Z"
+    },
+    {
+      "name": "IncidentCommanderAgent",
+      "file_name": "IncidentCommanderAgent",
+      "description": "Autonomous incident detection, response, and recovery agent",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/support/IncidentCommanderAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "IncidentCommanderAgent",
+        "timestamp": "2025-10-14T14:33:08.341Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-14T14:33:08.341Z"
+    },
+    {
+      "name": "CostMonitoringAgent",
+      "file_name": "CostMonitoringAgent",
+      "description": "Cost monitoring and economic circuit breaker agent",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/support/CostMonitoringAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "CostMonitoringAgent",
+        "timestamp": "2025-10-14T14:33:08.342Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-14T14:33:08.343Z"
+    },
+    {
+      "name": "CoordinatorAgent",
+      "file_name": "CoordinatorAgent",
+      "description": "Task routing, agent orchestration, and workflow management",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/support/CoordinatorAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "CoordinatorAgent",
+        "timestamp": "2025-10-14T14:33:08.343Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-14T14:33:08.343Z"
+    },
+    {
+      "name": "AuditAgent",
+      "file_name": "AuditAgent",
+      "description": "Security auditing, access log analysis, and anomaly detection",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/support/AuditAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "AuditAgent",
+        "timestamp": "2025-10-14T14:33:08.344Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-14T14:33:08.344Z"
+    },
+    {
+      "name": "VisualAgent",
+      "file_name": "VisualAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/VisualAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.338Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "VisualAgent",
+        "timestamp": "2025-10-14T14:33:08.344Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.345Z"
+    },
+    {
+      "name": "StructureAgent",
+      "file_name": "StructureAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/StructureAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "StructureAgent",
+        "timestamp": "2025-10-14T14:33:08.345Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.346Z"
+    },
+    {
+      "name": "LogoAgent",
+      "file_name": "LogoAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/LogoAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "LogoAgent",
+        "timestamp": "2025-10-14T14:33:08.346Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.347Z"
+    },
+    {
+      "name": "ExpressionAgent",
+      "file_name": "ExpressionAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/ExpressionAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "ExpressionAgent",
+        "timestamp": "2025-10-14T14:33:08.347Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.347Z"
+    },
+    {
+      "name": "EvaluationAgent",
+      "file_name": "EvaluationAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/EvaluationAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "EvaluationAgent",
+        "timestamp": "2025-10-14T14:33:08.348Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.348Z"
+    },
+    {
+      "name": "CopyAgent",
+      "file_name": "CopyAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/core/CopyAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "CopyAgent",
+        "timestamp": "2025-10-14T14:33:08.348Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 1,
+        "failed": 4,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.349Z"
+    },
+    {
+      "name": "BaseAgent",
+      "file_name": "BaseAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "base",
+      "file_path": "/Users/enhanced/Desktop/program/Brand Builder/src/agents/base/BaseAgent.js",
+      "discovered_at": "2025-10-14T14:33:08.339Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "BaseAgent",
+        "timestamp": "2025-10-14T14:33:08.349Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✗ Constructor does not accept options parameter"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": false,
+            "details": [
+              "✗ Missing required method: initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": false,
+            "details": [
+              "✗ Missing @file tag",
+              "✗ Missing @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "⚠ Law of Objectivity: May need better observability",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 2,
+        "failed": 3,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-14T14:33:08.350Z"
+    },
+    {
+      "name": "SystemRegistryAgent",
+      "file_name": "SystemRegistryAgent",
+      "description": "Agent onboarding, compliance testing, and registration system",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/support/SystemRegistryAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.875Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "SystemRegistryAgent",
+        "timestamp": "2025-10-15T04:40:02.878Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.880Z"
+    },
+    {
+      "name": "IncidentCommanderAgent",
+      "file_name": "IncidentCommanderAgent",
+      "description": "Autonomous incident detection, response, and recovery agent",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/support/IncidentCommanderAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.876Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "IncidentCommanderAgent",
+        "timestamp": "2025-10-15T04:40:02.880Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.881Z"
+    },
+    {
+      "name": "CostMonitoringAgent",
+      "file_name": "CostMonitoringAgent",
+      "description": "Cost monitoring and economic circuit breaker agent",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/support/CostMonitoringAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.876Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "CostMonitoringAgent",
+        "timestamp": "2025-10-15T04:40:02.882Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.882Z"
+    },
+    {
+      "name": "CoordinatorAgent",
+      "file_name": "CoordinatorAgent",
+      "description": "Task routing, agent orchestration, and workflow management",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/support/CoordinatorAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.876Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "CoordinatorAgent",
+        "timestamp": "2025-10-15T04:40:02.883Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.883Z"
+    },
+    {
+      "name": "AuditAgent",
+      "file_name": "AuditAgent",
+      "description": "Security auditing, access log analysis, and anomaly detection",
+      "version": "1.0.0",
+      "category": "support",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/support/AuditAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "AuditAgent",
+        "timestamp": "2025-10-15T04:40:02.884Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "⚠ Missing recommended methods: execute, run, process"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "✓ Documents responsibilities"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.884Z"
+    },
+    {
+      "name": "VisualAgent",
+      "file_name": "VisualAgent",
+      "description": "ビジュアルシステム設計エージェント",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/VisualAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "VisualAgent",
+        "timestamp": "2025-10-15T04:40:02.885Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 4,
+        "failed": 1,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.885Z"
+    },
+    {
+      "name": "StructureAgent",
+      "file_name": "StructureAgent",
+      "description": "ブランド構造分析エージェント",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/StructureAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "StructureAgent",
+        "timestamp": "2025-10-15T04:40:02.886Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 4,
+        "failed": 1,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.886Z"
+    },
+    {
+      "name": "LogoAgent",
+      "file_name": "LogoAgent",
+      "description": "ロゴ・象徴設計エージェント",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/LogoAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "LogoAgent",
+        "timestamp": "2025-10-15T04:40:02.886Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 4,
+        "failed": 1,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.887Z"
+    },
+    {
+      "name": "ExpressionAgent",
+      "file_name": "ExpressionAgent",
+      "description": "表現設計エージェント",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/ExpressionAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "ExpressionAgent",
+        "timestamp": "2025-10-15T04:40:02.887Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 4,
+        "failed": 1,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.888Z"
+    },
+    {
+      "name": "EvaluationAgent",
+      "file_name": "EvaluationAgent",
+      "description": "品質評価エージェント - ToT 評価・意思決定エージェント",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/EvaluationAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.877Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "EvaluationAgent",
+        "timestamp": "2025-10-15T04:40:02.888Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 4,
+        "failed": 1,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.889Z"
+    },
+    {
+      "name": "CopyAgent",
+      "file_name": "CopyAgent",
+      "description": "CopyAgent の実装",
+      "version": "1.0.0",
+      "category": "core",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/core/CopyAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.878Z",
+      "status": "failed_compliance",
+      "compliance_results": {
+        "agent": "CopyAgent",
+        "timestamp": "2025-10-15T04:40:02.889Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": false,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✗ Options not stored in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": false,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "⚠ Law of Self-Sufficiency: May need better error handling",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 3,
+        "failed": 2,
+        "overall_status": "failed"
+      },
+      "registered_at": "2025-10-15T04:40:02.890Z"
+    },
+    {
+      "name": "BaseAgent",
+      "file_name": "BaseAgent",
+      "description": "No description",
+      "version": "1.0.0",
+      "category": "base",
+      "file_path": "/Users/enhanced/Desktop/program/EStack-Brand-Builder/src/agents/base/BaseAgent.js",
+      "discovered_at": "2025-10-15T04:40:02.878Z",
+      "status": "registered",
+      "compliance_results": {
+        "agent": "BaseAgent",
+        "timestamp": "2025-10-15T04:40:02.891Z",
+        "tests": [
+          {
+            "name": "File Structure",
+            "description": "Validates agent file structure and exports",
+            "passed": true,
+            "details": [
+              "✓ Uses ES6 modules",
+              "✓ Exports agent class",
+              "✓ Has default export"
+            ]
+          },
+          {
+            "name": "Constructor Compliance",
+            "description": "Validates constructor accepts options parameter",
+            "passed": true,
+            "details": [
+              "✓ Constructor accepts options (options)",
+              "✓ Stores options in instance"
+            ]
+          },
+          {
+            "name": "Interface Implementation",
+            "description": "Validates required methods are implemented",
+            "passed": true,
+            "details": [
+              "✓ Implements initialize()",
+              "✓ Implements execution method"
+            ]
+          },
+          {
+            "name": "Documentation",
+            "description": "Validates JSDoc and code documentation",
+            "passed": true,
+            "details": [
+              "✓ Has @file tag",
+              "✓ Has @description tag",
+              "✓ Has @version tag",
+              "✓ Class has JSDoc comment",
+              "⚠ Missing responsibilities documentation"
+            ]
+          },
+          {
+            "name": "Constitution Adherence",
+            "description": "Validates adherence to The Three Laws of Autonomy",
+            "passed": true,
+            "details": [
+              "✓ Law of Objectivity: Uses logging and data structures",
+              "✓ Law of Self-Sufficiency: Has error handling and async patterns",
+              "✓ Law of Traceability: Implements persistence or timestamps"
+            ]
+          }
+        ],
+        "passed": 5,
+        "failed": 0,
+        "overall_status": "passed"
+      },
+      "registered_at": "2025-10-15T04:40:02.891Z"
+    }
+  ],
+  "last_scan": "2025-10-15T04:40:02.878Z"
+}

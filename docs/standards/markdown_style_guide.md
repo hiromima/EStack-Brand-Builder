@@ -1,4 +1,4 @@
-# Markdown Style Guide for Brand Builder
+# Markdown Style Guide for EStack-Brand-Builder
 
 バージョン: 1.0
 最終更新: 2025-10-14
@@ -549,4 +549,4 @@ grip README.md
 
 ---
 
-**このスタイルガイドは Brand Builder プロジェクト全体で適用されます**
+**このスタイルガイドは EStack-Brand-Builder プロジェクト全体で適用されます**
