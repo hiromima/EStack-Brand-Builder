@@ -345,9 +345,9 @@ ${evaluation.recommendations && evaluation.recommendations.length > 0
    * @returns {string} レポート
    */
   generateReport(result) {
-    let report = '\n' + '='.repeat(60) + '\n';
+    let report = `\n${  '='.repeat(60)  }\n`;
     report += 'Auto-Improvement Report\n';
-    report += '='.repeat(60) + '\n\n';
+    report += `${'='.repeat(60)  }\n\n`;
 
     report += `結果: ${result.success ? '✅ 成功（目標達成）' : '⚠️  部分的成功（目標未達）'}\n`;
     report += `試行回数: ${result.attempts}/${this.options.maxAttempts}\n`;
@@ -355,13 +355,13 @@ ${evaluation.recommendations && evaluation.recommendations.length > 0
     report += `目標スコア: ${this.options.targetScore}\n\n`;
 
     report += '改善サマリー:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     report += result.improvementSummary;
     report += '\n\n';
 
     if (result.finalEvaluation.recommendations && result.finalEvaluation.recommendations.length > 0) {
       report += '残存する改善推奨事項:\n';
-      report += '-'.repeat(60) + '\n';
+      report += `${'-'.repeat(60)  }\n`;
       for (const rec of result.finalEvaluation.recommendations) {
         report += `\n[${rec.category} - ${rec.criterion}]\n`;
         report += `  スコア: ${rec.score}/100\n`;
@@ -370,7 +370,7 @@ ${evaluation.recommendations && evaluation.recommendations.length > 0
       report += '\n';
     }
 
-    report += '='.repeat(60) + '\n';
+    report += `${'='.repeat(60)  }\n`;
 
     return report;
   }

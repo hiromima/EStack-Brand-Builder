@@ -272,29 +272,29 @@ export class ZeroHumanApproval {
    * @returns {string} レポート
    */
   generateReport(result) {
-    let report = '\n' + '='.repeat(60) + '\n';
+    let report = `\n${  '='.repeat(60)  }\n`;
     report += 'Zero-Human Approval Protocol Report\n';
-    report += '='.repeat(60) + '\n\n';
+    report += `${'='.repeat(60)  }\n\n`;
 
     report += `提案ID: ${result.proposalId}\n`;
     report += `ブランド名: ${result.brandName}\n`;
     report += `評価日時: ${result.timestamp}\n\n`;
 
     report += '評価結果:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     report += `  総合スコア: ${result.evaluation.score.overall}/100\n`;
     report += `  信頼度: ${result.evaluation.score.confidence}\n`;
     report += `  モデル間合意度: ${(result.evaluation.score.agreement * 100).toFixed(1)}%\n`;
     report += `  評価時間: ${result.protocol.evaluationDuration}ms\n\n`;
 
     report += '承認判定:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     report += `  ステータス: ${result.approvalDecision.status}\n`;
     report += `  自動承認: ${result.approvalDecision.autoApproved ? 'YES ✅' : 'NO ❌'}\n`;
     report += `  判定理由: ${result.approvalDecision.reasoning}\n\n`;
 
     report += '判定基準:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     const criteria = result.approvalDecision.criteria;
     report += `  スコア閾値: ${criteria.scoreThreshold.actual.toFixed(1)}/${criteria.scoreThreshold.required} ${criteria.scoreThreshold.met ? '✅' : '❌'}\n`;
     report += `  合意度閾値: ${(criteria.consensusThreshold.actual * 100).toFixed(1)}%/${(criteria.consensusThreshold.required * 100).toFixed(1)}% ${criteria.consensusThreshold.met ? '✅' : '❌'}\n`;
@@ -302,7 +302,7 @@ export class ZeroHumanApproval {
 
     if (result.evaluation.recommendations && result.evaluation.recommendations.length > 0) {
       report += '改善推奨事項:\n';
-      report += '-'.repeat(60) + '\n';
+      report += `${'-'.repeat(60)  }\n`;
       for (const rec of result.evaluation.recommendations) {
         report += `\n[${rec.category} - ${rec.criterion}]\n`;
         report += `  スコア: ${rec.score}/100\n`;
@@ -311,7 +311,7 @@ export class ZeroHumanApproval {
       report += '\n';
     }
 
-    report += '='.repeat(60) + '\n';
+    report += `${'='.repeat(60)  }\n`;
 
     return report;
   }

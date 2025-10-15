@@ -378,9 +378,9 @@ ${JSON.stringify(rubricDefs, null, 2)}
   generateReport(evaluationResult) {
     const { approved, score, evaluations, threshold, recommendations } = evaluationResult;
 
-    let report = '\n' + '='.repeat(60) + '\n';
+    let report = `\n${  '='.repeat(60)  }\n`;
     report += 'Evaluation Report\n';
-    report += '='.repeat(60) + '\n\n';
+    report += `${'='.repeat(60)  }\n\n`;
 
     report += `Overall Score: ${score.overall}/100\n`;
     report += `Threshold: ${threshold}\n`;
@@ -389,16 +389,16 @@ ${JSON.stringify(rubricDefs, null, 2)}
     report += `Agreement: ${(score.agreement * 100).toFixed(1)}%\n\n`;
 
     report += 'Model Breakdown:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     for (const breakdown of score.breakdown) {
       const scoreStr = breakdown.score !== undefined ? breakdown.score.toFixed(2) : 'N/A';
       report += `  ${breakdown.model}: ${scoreStr} (weight: ${breakdown.weight})\n`;
     }
 
     if (recommendations && recommendations.length > 0) {
-      report += '\n' + '='.repeat(60) + '\n';
+      report += `\n${  '='.repeat(60)  }\n`;
       report += 'Recommendations:\n';
-      report += '='.repeat(60) + '\n';
+      report += `${'='.repeat(60)  }\n`;
 
       for (const rec of recommendations) {
         report += `\n[${rec.category} - ${rec.criterion}]\n`;
@@ -411,7 +411,7 @@ ${JSON.stringify(rubricDefs, null, 2)}
       }
     }
 
-    report += '\n' + '='.repeat(60) + '\n';
+    report += `\n${  '='.repeat(60)  }\n`;
 
     return report;
   }

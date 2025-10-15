@@ -275,7 +275,7 @@ export class SymbolConverter {
    * @param {Object} report - レポート
    */
   printReport(report) {
-    console.log('\n' + '='.repeat(60));
+    console.log(`\n${  '='.repeat(60)}`);
     console.log('Symbol Conversion Report');
     console.log('='.repeat(60));
 
@@ -297,7 +297,7 @@ export class SymbolConverter {
       }
     }
 
-    console.log('\n' + '='.repeat(60) + '\n');
+    console.log(`\n${  '='.repeat(60)  }\n`);
   }
 }
 

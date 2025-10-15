@@ -140,7 +140,7 @@ export class SemanticSearchEngine {
       logger.info(`Search completed in ${duration}ms (${formattedResults.length} results)`);
 
       return {
-        query: query,
+        query,
         expandedQuery: expandedQuery !== query ? expandedQuery : undefined,
         results: formattedResults,
         totalFound: vectorResults.ids.length,

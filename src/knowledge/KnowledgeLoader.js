@@ -304,7 +304,7 @@ export class KnowledgeLoader {
     const start = Math.max(0, index - 100);
     const end = Math.min(content.length, index + query.length + 100);
 
-    return '...' + content.substring(start, end) + '...';
+    return `...${  content.substring(start, end)  }...`;
   }
 }
 

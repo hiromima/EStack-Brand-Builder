@@ -44,9 +44,9 @@ class EvaluationDashboard {
    * ヘッダーを表示
    */
   printHeader() {
-    console.log('\n' + '═'.repeat(70));
+    console.log(`\n${  '═'.repeat(70)}`);
     console.log('  📊 EVALUATION DASHBOARD');
-    console.log('═'.repeat(70) + '\n');
+    console.log(`${'═'.repeat(70)  }\n`);
   }
 
   /**
@@ -54,7 +54,7 @@ class EvaluationDashboard {
    * @param {Object} stats - 統計情報
    */
   printOverview(stats) {
-    console.log('┌─ 📈 OVERVIEW ' + '─'.repeat(55));
+    console.log(`┌─ 📈 OVERVIEW ${  '─'.repeat(55)}`);
     console.log('│');
     console.log(`│  総レコード数: ${stats.totalRecords}`);
     console.log(`│    ├─ 単一評価: ${stats.evaluations}`);
@@ -80,7 +80,7 @@ class EvaluationDashboard {
     console.log(`│    ├─ Medium: ${stats.confidenceDistribution.medium}`);
     console.log(`│    └─ Low: ${stats.confidenceDistribution.low}`);
     console.log('│');
-    console.log('└' + '─'.repeat(69) + '\n');
+    console.log(`└${  '─'.repeat(69)  }\n`);
   }
 
   /**
@@ -88,7 +88,7 @@ class EvaluationDashboard {
    * @param {Object} trends - トレンドデータ
    */
   printTrends(trends) {
-    console.log('┌─ 📉 TRENDS (過去7日間) ' + '─'.repeat(43));
+    console.log(`┌─ 📉 TRENDS (過去7日間) ${  '─'.repeat(43)}`);
     console.log('│');
 
     if (trends.dataPoints === 0) {
@@ -109,7 +109,7 @@ class EvaluationDashboard {
     }
 
     console.log('│');
-    console.log('└' + '─'.repeat(69) + '\n');
+    console.log(`└${  '─'.repeat(69)  }\n`);
   }
 
   /**
@@ -117,7 +117,7 @@ class EvaluationDashboard {
    * @param {Array} records - レコード
    */
   printRecentActivity(records) {
-    console.log('┌─ 🕐 RECENT ACTIVITY (最新5件) ' + '─'.repeat(36));
+    console.log(`┌─ 🕐 RECENT ACTIVITY (最新5件) ${  '─'.repeat(36)}`);
     console.log('│');
 
     if (records.length === 0) {
@@ -140,7 +140,7 @@ class EvaluationDashboard {
     }
 
     console.log('│');
-    console.log('└' + '─'.repeat(69) + '\n');
+    console.log(`└${  '─'.repeat(69)  }\n`);
   }
 
   /**
@@ -149,7 +149,7 @@ class EvaluationDashboard {
   printFooter() {
     console.log('═'.repeat(70));
     console.log('  💡 コマンド: npm run eval:dashboard');
-    console.log('═'.repeat(70) + '\n');
+    console.log(`${'═'.repeat(70)  }\n`);
   }
 
   /**
@@ -160,9 +160,9 @@ class EvaluationDashboard {
     await this.history.initialize();
 
     console.clear();
-    console.log('\n' + '═'.repeat(70));
+    console.log(`\n${  '═'.repeat(70)}`);
     console.log('  📋 DETAILED EVALUATION REPORT');
-    console.log('═'.repeat(70) + '\n');
+    console.log(`${'═'.repeat(70)  }\n`);
 
     const stats = await this.history.getStatistics(filter);
     const records = await this.history.getHistory(filter);
@@ -210,7 +210,7 @@ class EvaluationDashboard {
       });
     }
 
-    console.log('\n' + '═'.repeat(70) + '\n');
+    console.log(`\n${  '═'.repeat(70)  }\n`);
   }
 
   /**
@@ -231,9 +231,9 @@ class EvaluationDashboard {
     }
 
     console.clear();
-    console.log('\n' + '═'.repeat(70));
+    console.log(`\n${  '═'.repeat(70)}`);
     console.log('  🔀 COMPARISON REPORT');
-    console.log('═'.repeat(70) + '\n');
+    console.log(`${'═'.repeat(70)  }\n`);
 
     const score1 = record1.finalScore || record1.evaluation?.score || 0;
     const score2 = record2.finalScore || record2.evaluation?.score || 0;
@@ -256,7 +256,7 @@ class EvaluationDashboard {
     console.log(`  スコア差: ${diff > 0 ? '+' : ''}${diff.toFixed(2)}`);
     console.log(`  向上率: ${((diff / score1) * 100).toFixed(2)}%`);
 
-    console.log('\n' + '═'.repeat(70) + '\n');
+    console.log(`\n${  '═'.repeat(70)  }\n`);
   }
 }
 

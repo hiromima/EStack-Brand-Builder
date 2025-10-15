@@ -336,37 +336,37 @@ export class EvaluationHistory {
   async generateReport(filter = {}) {
     await this.initialize();
 
-    const stats = await getStatistics(filter);
+    const stats = await this.getStatistics(filter);
 
-    let report = '\n' + '='.repeat(60) + '\n';
+    let report = `\n${  '='.repeat(60)  }\n`;
     report += 'Evaluation History Report\n';
-    report += '='.repeat(60) + '\n\n';
+    report += `${'='.repeat(60)  }\n\n`;
 
     report += `総レコード数: ${stats.totalRecords}\n`;
     report += `  - 単一評価: ${stats.evaluations}\n`;
     report += `  - 改善セッション: ${stats.improvementSessions}\n\n`;
 
     report += 'スコア統計:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     report += `  平均スコア: ${stats.scoreStatistics.average}/100\n`;
     report += `  最低スコア: ${stats.scoreStatistics.min}/100\n`;
     report += `  最高スコア: ${stats.scoreStatistics.max}/100\n\n`;
 
     if (stats.improvementSessions > 0) {
       report += '改善セッション統計:\n';
-      report += '-'.repeat(60) + '\n';
+      report += `${'-'.repeat(60)  }\n`;
       report += `  成功率: ${stats.successRate}%\n`;
       report += `  平均試行回数: ${stats.averageAttempts}\n`;
       report += `  平均スコア向上: ${stats.averageImprovement > 0 ? '+' : ''}${stats.averageImprovement}\n\n`;
     }
 
     report += '信頼度分布:\n';
-    report += '-'.repeat(60) + '\n';
+    report += `${'-'.repeat(60)  }\n`;
     report += `  High: ${stats.confidenceDistribution.high}\n`;
     report += `  Medium: ${stats.confidenceDistribution.medium}\n`;
     report += `  Low: ${stats.confidenceDistribution.low}\n\n`;
 
-    report += '='.repeat(60) + '\n';
+    report += `${'='.repeat(60)  }\n`;
 
     return report;
   }

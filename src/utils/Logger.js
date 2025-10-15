@@ -243,7 +243,7 @@ export class Logger {
     const date = new Date().toISOString().split('T')[0];
     const logFile = join(this.logDir, `${this.name}-${date}.log`);
 
-    const logLines = entries.map(entry => JSON.stringify(entry)).join('\n') + '\n';
+    const logLines = `${entries.map(entry => JSON.stringify(entry)).join('\n')  }\n`;
 
     try {
       await writeFile(logFile, logLines, { flag: 'a' });
