@@ -90,6 +90,7 @@ jobs:
         run: |
           node -e "
           import fs from 'fs/promises';
+          import { appendFileSync } from 'fs';
           import { glob } from 'glob';
 
           (async () => {
@@ -121,7 +122,6 @@ jobs:
             console.log('Total lines:', metrics.total_lines);
             console.log('Estimated coverage:', metrics.coverage + '%');
 
-            import { appendFileSync } from 'fs';
             appendFileSync(process.env.GITHUB_OUTPUT, \`files=\${metrics.files}\\n\`);
             appendFileSync(process.env.GITHUB_OUTPUT, \`test_files=\${metrics.test_files}\\n\`);
             appendFileSync(process.env.GITHUB_OUTPUT, \`total_lines=\${metrics.total_lines}\\n\`);
@@ -135,6 +135,8 @@ jobs:
         id: quality
         run: |
           node -e "
+          import { appendFileSync } from 'fs';
+
           const lintExit = parseInt('${{ steps.lint.outputs.exit_code }}') || 0;
           const testExit = parseInt('${{ steps.test.outputs.exit_code }}') || 0;
           const autoApprovalExit = parseInt('${{ steps.auto_approval.outputs.exit_code }}') || 0;
@@ -170,7 +172,6 @@ jobs:
           console.log('Quality Score:', score.toFixed(0));
           console.log('Status:', status);
 
-          import { appendFileSync } from 'fs';
           appendFileSync(process.env.GITHUB_OUTPUT, \`score=\${score.toFixed(0)}\\n\`);
           appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${status}\\n\`);
 
