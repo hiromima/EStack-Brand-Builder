@@ -61,28 +61,29 @@ jobs:
           TEST_MODE: "true"
         continue-on-error: true
 
-      - name: Gemini Quality Analysis
-        if: always()
-        uses: google-github-actions/run-gemini-cli@v1
-        with:
-          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-          prompt: |
-            Analyze the quality gate results and provide recommendations.
-
-            Context:
-            - Lint result: ${{ steps.lint.outputs.exit_code }}
-            - Test result: ${{ steps.test.outputs.exit_code }}
-            - Auto-approval result: ${{ steps.auto_approval.outputs.exit_code }}
-            - Coverage: ${{ steps.metrics.outputs.coverage }}%
-            - Files: ${{ steps.metrics.outputs.files }}
-
-            Provide:
-            1. Quality assessment summary
-            2. Specific improvement suggestions
-            3. Priority recommendations
-
-            Be concise and actionable.
-        continue-on-error: true
+      # Gemini Quality Analysis - Temporarily disabled (action not available yet)
+      # - name: Gemini Quality Analysis
+      #   if: always()
+      #   uses: google-github-actions/run-gemini-cli@v1
+      #   with:
+      #     gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+      #     prompt: |
+      #       Analyze the quality gate results and provide recommendations.
+      #
+      #       Context:
+      #       - Lint result: ${{ steps.lint.outputs.exit_code }}
+      #       - Test result: ${{ steps.test.outputs.exit_code }}
+      #       - Auto-approval result: ${{ steps.auto_approval.outputs.exit_code }}
+      #       - Coverage: ${{ steps.metrics.outputs.coverage }}%
+      #       - Files: ${{ steps.metrics.outputs.files }}
+      #
+      #       Provide:
+      #       1. Quality assessment summary
+      #       2. Specific improvement suggestions
+      #       3. Priority recommendations
+      #
+      #       Be concise and actionable.
+      #   continue-on-error: true
 
       - name: Check code quality metrics
         id: metrics
