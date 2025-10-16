@@ -48,7 +48,7 @@ on:
     types: [opened, reopened]
 engine:
   id: claude
-  model: claude-3-5-sonnet-20241022
+  model: claude-sonnet-4-5-20250929
   max-turns: 5
 ---
 ```
@@ -59,12 +59,13 @@ gh secret set ANTHROPIC_API_KEY -a actions --body "<your-anthropic-api-key>"
 ```
 
 **特徴**:
+- Claude Sonnet 4.5: 複雑なエージェントとコーディングに最適
+- 200k コンテキストウィンドウ（1M はベータ版）
+- Knowledge cutoff: January 2025
 - 高度な推論とコード分析に優れる
-- 長いコンテキストウィンドウ
-- 詳細な説明が可能
 
 **コスト**:
-- Claude 3.5 Sonnet: $3/M input tokens, $15/M output tokens
+- Claude Sonnet 4.5: $3/M input tokens, $15/M output tokens
 - 推定: 100-300円/月（軽量使用時）
 
 ---
@@ -187,7 +188,7 @@ on:
     types: [opened, reopened]
 engine:
   id: claude
-  model: claude-3-5-sonnet-20241022
+  model: claude-sonnet-4-5-20250929
 permissions: read-all
 safe-outputs:
   add-labels:
@@ -228,7 +229,7 @@ safe-outputs:
 1. **コスト効率**: 200-300円/月（Gemini と同等）
 2. **自然言語ワークフロー**: AI が自動解釈してくれる
 3. **簡単な設定**: ANTHROPIC_API_KEY のみで動作
-4. **高品質**: Claude 3.5 Sonnet は最新の高性能モデル
+4. **高品質**: Claude Sonnet 4.5 は最新かつ最高性能のモデル（2025年9月リリース）
 
 ### 設定手順
 
@@ -260,7 +261,7 @@ on:
     types: [opened, reopened]
 engine:
   id: claude
-  model: claude-3-5-sonnet-20241022
+  model: claude-sonnet-4-5-20250929
 permissions: read-all
 safe-outputs:
   add-labels:
