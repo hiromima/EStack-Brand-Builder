@@ -6,7 +6,7 @@
 
 import { VectorStore } from './VectorStoreChroma.js';
 import { KnowledgeGraph } from './KnowledgeGraph.js';
-import { KnowledgeEntry } from '../models/KnowledgeEntry.js';
+// import { KnowledgeEntry } from '../models/KnowledgeEntry.js';
 
 /**
  * Knowledge Manager クラス

@@ -97,7 +97,7 @@ class EvaluationDashboard {
       const maxScore = 100;
       const barWidth = 40;
 
-      trends.trend.forEach((data, index) => {
+      trends.trend.forEach((data, _index) => {
         const date = data.date.split('T')[0];
         const score = data.averageScore;
         const barLength = Math.round((score / maxScore) * barWidth);

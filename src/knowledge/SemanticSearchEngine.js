@@ -198,7 +198,7 @@ export class SemanticSearchEngine {
    * @param {Object} [options={}] - 検索オプション
    * @returns {Promise<Object>} 検索結果
    */
-  async findSimilar(documentId, options = {}) {
+  async findSimilar(documentId, _options = {}) {
     this._ensureInitialized();
 
     logger.info(`Finding similar documents to: ${documentId}`);
@@ -255,7 +255,7 @@ export class SemanticSearchEngine {
    * @param {Object} options - オプション
    * @returns {Promise<Array<Object>>} スコア付き結果
    */
-  async _scoreResults(vectorResults, query, options) {
+  async _scoreResults(vectorResults, _query, _options) {
     const scoredResults = [];
 
     for (let i = 0; i < vectorResults.ids.length; i++) {
@@ -314,7 +314,7 @@ export class SemanticSearchEngine {
    * @param {string} query - 検索クエリ
    * @returns {Promise<Array<Object>>} 再ランキング結果
    */
-  async _rerankResults(results, query) {
+  async _rerankResults(results, _query) {
     // シンプルな再ランキング: 多様性を考慮
     // 将来的に AI による再ランキングを実装
 

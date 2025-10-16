@@ -367,7 +367,7 @@ export class CitationGraph {
     const nodes = Array.from(this.nodes.values());
     const edges = [];
 
-    this.edges.forEach((edgeSet, sourceId) => {
+    this.edges.forEach((edgeSet, _sourceId) => {
       edgeSet.forEach(edge => edges.push(edge));
     });
 

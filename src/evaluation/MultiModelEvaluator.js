@@ -107,7 +107,7 @@ export class MultiModelEvaluator {
 
           // Rubric オブジェクトの場合（Claudeスタイル）
           if (typeof value === 'object' && value !== null && !value.score) {
-            for (const [criterion, data] of Object.entries(value)) {
+            for (const [_criterion, data] of Object.entries(value)) {
               if (data && typeof data === 'object' && data.score !== undefined) {
                 scores.push(data.score);
               }
@@ -339,7 +339,7 @@ ${JSON.stringify(rubricDefs, null, 2)}
    * @param {Object} proposal - ブランド提案
    * @returns {Promise<Array>} 推奨事項
    */
-  async generateRecommendations(evaluations, proposal) {
+  async generateRecommendations(evaluations, _proposal) {
     const recommendations = [];
 
     for (const evaluation of evaluations) {
@@ -376,7 +376,7 @@ ${JSON.stringify(rubricDefs, null, 2)}
    * @returns {string} レポート
    */
   generateReport(evaluationResult) {
-    const { approved, score, evaluations, threshold, recommendations } = evaluationResult;
+    const { approved, score, threshold, recommendations } = evaluationResult;
 
     let report = '\n' + '='.repeat(60) + '\n';
     report += 'Evaluation Report\n';
