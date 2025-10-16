@@ -4,6 +4,7 @@ on:
     types: [opened, reopened]
   stop-after: +30d # workflow will no longer trigger after 30 days. Remove this and recompile to run indefinitely
   reaction: eyes
+engine: gemini
 
 permissions: read-all
 
