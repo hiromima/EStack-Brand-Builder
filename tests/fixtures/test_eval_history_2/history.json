@@ -1,0 +1,40 @@
+[
+  {
+    "id": "eval_1760548919510_ju92wee1r",
+    "timestamp": "2025-10-15T17:21:59.510Z",
+    "type": "single_evaluation",
+    "proposal": {
+      "brandName": "Test Brand",
+      "foundation": {
+        "purpose": "Test purpose"
+      },
+      "structure": {
+        "architecture": "Simple"
+      }
+    },
+    "evaluation": {
+      "score": 85,
+      "approved": true,
+      "confidence": "high",
+      "agreement": 0.9,
+      "breakdown": [
+        {
+          "model": "claude",
+          "score": 86,
+          "weight": 0.4
+        },
+        {
+          "model": "gpt",
+          "score": 84,
+          "weight": 0.3
+        },
+        {
+          "model": "gemini",
+          "score": 85,
+          "weight": 0.3
+        }
+      ]
+    },
+    "metadata": {}
+  }
+]
