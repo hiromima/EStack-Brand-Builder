@@ -392,19 +392,21 @@ describe('CostMonitoringAgent', () => {
 
     it('should trigger critical at 90% threshold', async () => {
       // 予算の90%に達するよう設定（95%を超えない）
-      // 月の70%経過時点で63ドル使用 = projected 90ドル
+      // 現在の月の経過率を計算し、それに基づいて90%projectedになるコストを設定
       const now = new Date();
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
       const totalDays = (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
-      const targetDaysElapsed = totalDays * 0.70; // 70% elapsed
+      const daysElapsed = (now - monthStart) / (1000 * 60 * 60 * 24);
 
-      const targetTimestamp = new Date(monthStart.getTime() + targetDaysElapsed * 24 * 60 * 60 * 1000);
+      // projected = (current / daysElapsed) * totalDays = 90
+      // current = 90 * daysElapsed / totalDays
+      const targetCurrent = 90 * daysElapsed / totalDays;
 
       agent.costLog = [
         {
-          timestamp: targetTimestamp.toISOString(),
-          estimated_cost: 63.0 // 70% elapsed with 63 = 90 projected
+          timestamp: now.toISOString(),
+          estimated_cost: targetCurrent
         }
       ];
 

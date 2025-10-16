@@ -45,7 +45,7 @@ describe('BaseAgent', () => {
 
     assert.strictEqual(agent.metrics.tasksProcessed, 2);
     assert.strictEqual(agent.metrics.successCount, 2);
-    assert(agent.metrics.averageProcessingTime > 0);
+    assert(agent.metrics.averageProcessingTime >= 0); // >= 0 に変更（高速実行時は0もあり得る）
   });
 
   it('should emit events', async () => {
