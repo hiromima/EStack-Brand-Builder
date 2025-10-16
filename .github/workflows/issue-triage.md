@@ -5,6 +5,10 @@ on:
   stop-after: +30d # workflow will no longer trigger after 30 days. Remove this and recompile to run indefinitely
   reaction: eyes
 
+engine:
+  id: claude
+  model: claude-3-5-sonnet-20241022
+
 permissions: read-all
 
 network: defaults
