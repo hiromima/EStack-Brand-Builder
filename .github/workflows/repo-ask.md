@@ -6,6 +6,10 @@ on:
   stop-after: +48h
 roles: [admin, maintainer, write]
 
+engine:
+  id: claude
+  model: claude-sonnet-4-5-20250929
+
 permissions: read-all
 
 network: defaults
