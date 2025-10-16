@@ -63,6 +63,7 @@
     "openai": "^6.3.0"
   },
   "devDependencies": {
+    "c8": "^10.1.3",
     "eslint": "^8.57.0",
     "jsdoc": "^4.0.2",
     "prettier": "^3.2.5"
