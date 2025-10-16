@@ -315,7 +315,7 @@ export async function createBackup(dir) {
   // ディレクトリをコピー
   await fs.cp(dir, backupDir, { recursive: true });
 
-  console.log(`✅ Backup created successfully`);
+  console.log('✅ Backup created successfully');
 
   return backupDir;
 }

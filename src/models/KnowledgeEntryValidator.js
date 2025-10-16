@@ -4,7 +4,13 @@
  * @version 1.0.0
  */
 
-import schema from './schemas/knowledge-entry.schema.json' assert { type: 'json' };
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const schema = JSON.parse(readFileSync(join(__dirname, './schemas/knowledge-entry.schema.json'), 'utf-8'));
 
 /**
  * バリデーションエラークラス

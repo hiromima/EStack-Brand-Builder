@@ -336,7 +336,7 @@ export class EvaluationHistory {
   async generateReport(filter = {}) {
     await this.initialize();
 
-    const stats = await getStatistics(filter);
+    const stats = await this.getStatistics(filter);
 
     let report = '\n' + '='.repeat(60) + '\n';
     report += 'Evaluation History Report\n';

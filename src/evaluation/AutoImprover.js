@@ -211,12 +211,12 @@ ${e.model}:
 
 【改善推奨事項】
 ${evaluation.recommendations && evaluation.recommendations.length > 0
-  ? evaluation.recommendations.map(rec => `
+    ? evaluation.recommendations.map(rec => `
 - [${rec.category} - ${rec.criterion}] スコア: ${rec.score}/100
   理由: ${rec.reason}
   ${rec.weaknesses && rec.weaknesses.length > 0 ? `弱点: ${rec.weaknesses.join(', ')}` : ''}
 `).join('\n')
-  : '特になし（全般的な改善が必要）'}
+    : '特になし（全般的な改善が必要）'}
 
 【改善指示】
 1. 上記の評価結果と推奨事項を分析してください

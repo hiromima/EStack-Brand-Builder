@@ -405,7 +405,7 @@ ${JSON.stringify(rubricDefs, null, 2)}
         report += `  Score: ${rec.score}/100\n`;
         report += `  Reason: ${rec.reason}\n`;
         if (rec.weaknesses.length > 0) {
-          report += `  Weaknesses:\n`;
+          report += '  Weaknesses:\n';
           rec.weaknesses.forEach(w => report += `    - ${w}\n`);
         }
       }

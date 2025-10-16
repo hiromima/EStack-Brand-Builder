@@ -186,9 +186,9 @@ export class CitationGraph {
     // 引用元の信頼性加重平均
     const citationQuality = citationCount > 0
       ? incomingEdges.reduce((sum, edge) => {
-          const sourceNode = this.getNode(edge.sourceId);
-          return sum + (sourceNode ? sourceNode.credibility * edge.weight : 0);
-        }, 0) / citationCount
+        const sourceNode = this.getNode(edge.sourceId);
+        return sum + (sourceNode ? sourceNode.credibility * edge.weight : 0);
+      }, 0) / citationCount
       : 0;
 
     // 影響度スコア計算
