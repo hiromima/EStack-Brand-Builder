@@ -28,6 +28,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: '**/package.json'
 
       - name: Install dependencies
         run: npm install
@@ -39,8 +41,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: |
-          node -e "
+          node --input-type=module -e "
           import { CostMonitoringAgent } from './src/agents/support/CostMonitoringAgent.js';
+          import { appendFileSync } from 'fs';
 
           (async () => {
             const agent = new CostMonitoringAgent();
@@ -50,14 +53,13 @@ jobs:
 
             console.log('Cost check completed');
             console.log('Status:', status.status);
-            console.log('Projected cost: $' + status.projected_cost.toFixed(2));
+            console.log('Projected cost: \$' + status.projected_cost.toFixed(2));
             console.log('Percent of budget:', status.percent_of_budget.toFixed(1) + '%');
 
             // Export for GitHub Actions using Environment Files
-            const fs = require('fs');
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${status.status}\\n\`);
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`projected_cost=\${status.projected_cost.toFixed(2)}\\n\`);
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, \`percent_of_budget=\${status.percent_of_budget.toFixed(1)}\\n\`);
+            appendFileSync(process.env.GITHUB_OUTPUT, \`status=\${status.status}\\n\`);
+            appendFileSync(process.env.GITHUB_OUTPUT, \`projected_cost=\${status.projected_cost.toFixed(2)}\\n\`);
+            appendFileSync(process.env.GITHUB_OUTPUT, \`percent_of_budget=\${status.percent_of_budget.toFixed(1)}\\n\`);
 
             if (status.status !== 'normal') {
               console.log('::warning::Cost alert: ' + status.status);
